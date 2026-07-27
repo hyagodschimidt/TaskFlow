@@ -1,8 +1,22 @@
 ﻿namespace TaskFlow.Domain.Entities;
 
-using System;
+using TaskFlow.Domain.Enums;
 
 public class Company
 {
+    public int Id { get; private set; }
 
+    public string Name { get; private set; } = string.Empty;
+
+    public DeadlineMode DeadlineMode { get; private set; }
+            
+    private Company()
+    {
+    }
+
+    public Company(string name, DeadlineMode deadlineMode)
+    {
+        Name = name;                
+        DeadlineMode = deadlineMode;
+    }
 }

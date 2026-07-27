@@ -1,8 +1,9 @@
-﻿using System;
+﻿
+namespace TaskFlow.Domain.Enums;
 
 public enum TaskItemStatus
 {
-	ToDo,
-	InProgress,
-	Completed
+	ToDo = 1,
+	InProgress = 2,
+	Completed = 3	
 }

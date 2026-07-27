@@ -1,6 +1,7 @@
 ﻿namespace TaskFlow.Domain.Entities;
 
 using System;
+using TaskFlow.Domain.Enums;
 
 public class TaskItem
 {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿namespace TaskFlow.Domain.Enums;
 
 public enum UserRole
 {
-	Admin,
-	User
+	Admin = 1,
+	User = 2
 }
