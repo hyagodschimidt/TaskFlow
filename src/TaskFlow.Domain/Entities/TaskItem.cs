@@ -7,7 +7,7 @@ public class TaskItem
 {
     public int Id { get; private set; }
 
-    public string Title { get; private set; }
+    public string Title { get; private set; } = string.Empty;
 
     public string Description { get; private set; } = string.Empty;
 
@@ -15,7 +15,10 @@ public class TaskItem
 
     public TaskItemPriority? Priority { get; private set; }
 
+    public DateTime CreatedAt { get; private set; }
     public int AssignedToUserId { get; private set; }
+
+    public DateTime? DueDate { get; private set; }
 
     public int CompanyId { get; private set; }
 
@@ -32,14 +35,45 @@ public class TaskItem
         string description,
         int companyId,
         int assignedToUserId,
-        TaskItemPriority? priority = null)
+        TaskItemPriority? priority = null,
+        DateTime? dueDate = null)
     {
         Title = title;
         Description = description;
         CompanyId = companyId;
         AssignedToUserId = assignedToUserId;
         Priority = priority;
+        DueDate = dueDate;
+
         Status = TaskItemStatus.ToDo;
+        CreatedAt = DateTime.UtcNow;
     }
 
+    public void Start()
+    {
+        if (Status != TaskItemStatus.ToDo)
+        {
+            throw new InvalidOperationException("Task can only be started if it is in 'To Do' status.");
+        }
+        Status = TaskItemStatus.InProgress;
+    }
+
+    public void Complete(string report)
+    {
+        if (string.IsNullOrWhiteSpace(report))
+        {
+            throw new ArgumentException("Completion report cannot be null or empty.", nameof(report));
+        }
+        if (Status == TaskItemStatus.Completed)
+        {
+            throw new InvalidOperationException("Task is already completed.");
+        }
+        if (Status != TaskItemStatus.InProgress)
+        {
+            throw new InvalidOperationException("Task can only be completed if it is in 'In Progress' status.");
+        }
+        Status = TaskItemStatus.Completed;
+        CompletionReport = report;
+        CompletedAt = DateTime.UtcNow;
+    }
 }

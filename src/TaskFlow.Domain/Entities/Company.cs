@@ -9,14 +9,17 @@ public class Company
     public string Name { get; private set; } = string.Empty;
 
     public DeadlineMode DeadlineMode { get; private set; }
-            
+
+    public PriorityAccessPolicy PriorityAccessPolicy { get; private set; }
+
     private Company()
     {
     }
 
-    public Company(string name, DeadlineMode deadlineMode)
+    public Company(string name, DeadlineMode deadlineMode, PriorityAccessPolicy priorityAccessPolicy)
     {
         Name = name;                
         DeadlineMode = deadlineMode;
+        PriorityAccessPolicy = priorityAccessPolicy;
     }
 }
