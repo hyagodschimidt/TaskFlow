@@ -11,7 +11,6 @@ public class Company
     public DeadlineMode DeadlineMode { get; private set; }
 
     public PriorityAccessPolicy PriorityAccessPolicy { get; private set; }
-
     private Company()
     {
     }

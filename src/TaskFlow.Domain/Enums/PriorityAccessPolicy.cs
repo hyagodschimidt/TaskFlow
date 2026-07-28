@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskFlow.Domain.Enums
+﻿namespace TaskFlow.Domain.Enums
 {
-    internal class PriorityAcessPolicy
+    public enum PriorityAccessPolicy
     {
+        Free = 1,
+        SuggestOrder = 2,
+        StrictPriorityLoca = 3,
     }
 }
