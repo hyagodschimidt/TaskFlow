@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskFlow.Application.Requests.Tasks
+﻿namespace TaskFlow.Application.Requests.Tasks
 {
-    internal class CompleteAppTaskRequest
+    public class CompleteAppTaskRequest
     {
+        public string Report { get; set; } = string.Empty;
     }
 }

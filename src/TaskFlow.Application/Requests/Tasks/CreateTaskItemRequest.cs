@@ -2,13 +2,13 @@
 
 namespace TaskFlow.Application.Requests.Tasks
 {
-    public class CreateAppTaskRequest
+    public class CreateTaskItemRequest
     {
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
 
-        public int AssignetToUserId { get; set; }
+        public int AssignedToUserId { get; set; }
 
         public TaskItemPriority? Priority { get; set; }
 

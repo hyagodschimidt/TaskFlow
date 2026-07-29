@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TaskFlow.Domain.Enums;
 
 namespace TaskFlow.Application.Requests.Companies
 {
-    internal class CreateCompanyRequest
+    public class CreateCompanyRequest
     {
+        public string Name { get; set; } = string.Empty;
+
+        public DeadlineMode DeadlineMode { get; set; }
+
+        public PriorityAccessPolicy PriorityAccessPolicy { get; set;  }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskFlow.Application.Requests.Auth
+﻿namespace TaskFlow.Application.Requests.Auth
 {
-    internal class LoginRequest
+    public class LoginRequest
     {
+        public string UserName { get; set; } = string.Empty;
+
+        public string Password {  get; set; } = string.Empty;
     }
 }
