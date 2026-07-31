@@ -6,6 +6,7 @@ public class Company
 {
     public int Id { get; private set; }
 
+    public string TaxId { get; private set; } = string.Empty;
     public string Name { get; private set; } = string.Empty;
 
     public DeadlineMode DeadlineMode { get; private set; }
@@ -15,9 +16,13 @@ public class Company
     {
     }
 
-    public Company(string name, DeadlineMode deadlineMode, PriorityAccessPolicy priorityAccessPolicy)
+    public Company(string name,
+        string taxId,
+        DeadlineMode deadlineMode,
+        PriorityAccessPolicy priorityAccessPolicy)
     {
-        Name = name;                
+        Name = name;    
+        TaxId = taxId;
         DeadlineMode = deadlineMode;
         PriorityAccessPolicy = priorityAccessPolicy;
     }

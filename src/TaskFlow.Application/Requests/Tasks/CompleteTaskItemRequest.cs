@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow.Application.Requests.Tasks
 {
-    public class CompleteAppTaskRequest
+    public class CompleteTaskItemRequest
     {
         public string Report { get; set; } = string.Empty;
     }

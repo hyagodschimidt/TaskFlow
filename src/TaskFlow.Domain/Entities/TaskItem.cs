@@ -15,6 +15,7 @@ public class TaskItem
 
     public TaskItemPriority? Priority { get; private set; }
 
+    public int CreatedByUserId { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public int AssignedToUserId { get; private set; }
 
@@ -35,6 +36,7 @@ public class TaskItem
         string description,
         int companyId,
         int assignedToUserId,
+        int createdByUserId,
         TaskItemPriority? priority = null,
         DateTime? dueDate = null)
     {
@@ -42,6 +44,7 @@ public class TaskItem
         Description = description;
         CompanyId = companyId;
         AssignedToUserId = assignedToUserId;
+        CreatedByUserId = createdByUserId;
         Priority = priority;
         DueDate = dueDate;
 
