@@ -9,6 +9,8 @@ public class Company
     public string TaxId { get; private set; } = string.Empty;
     public string Name { get; private set; } = string.Empty;
 
+    public string CompanyAccessCode { get; private set; } = string.Empty;
+
     public DeadlineMode DeadlineMode { get; private set; }
 
     public PriorityAccessPolicy PriorityAccessPolicy { get; private set; }

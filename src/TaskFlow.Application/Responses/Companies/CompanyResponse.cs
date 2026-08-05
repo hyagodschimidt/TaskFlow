@@ -7,8 +7,11 @@ namespace TaskFlow.Application.Responses.Companies
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string TaxId { get; set; } = string.Empty;
+
+        public string CompanyAcessCode { get; set; } = string.Empty;
         public PriorityAccessPolicy PriorityAccessPolicy { get; set; }
         public DeadlineMode DeadlineMode { get; set; }
+
 
     }
 }
