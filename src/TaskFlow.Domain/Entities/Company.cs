@@ -7,6 +7,7 @@ public class Company
     public int Id { get; private set; }
 
     public string TaxId { get; private set; } = string.Empty;
+
     public string Name { get; private set; } = string.Empty;
 
     public string CompanyAccessCode { get; private set; } = string.Empty;
@@ -26,7 +27,7 @@ public class Company
     {
         Name = name;    
         TaxId = taxId;
-        CompanyAccessCode  = companyAccessCode;
+        CompanyAccessCode = companyAccessCode;
         DeadlineMode = deadlineMode;
         PriorityAccessPolicy = priorityAccessPolicy;
     }
