@@ -20,11 +20,13 @@ public class Company
 
     public Company(string name,
         string taxId,
+        string companyAccessCode,
         DeadlineMode deadlineMode,
         PriorityAccessPolicy priorityAccessPolicy)
     {
         Name = name;    
         TaxId = taxId;
+        CompanyAccessCode  = companyAccessCode;
         DeadlineMode = deadlineMode;
         PriorityAccessPolicy = priorityAccessPolicy;
     }
