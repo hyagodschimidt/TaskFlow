@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TaskFlow.Domain.Entities;
 
 namespace TaskFlow.Application.Interfaces.Repositories
 {
-    internal class ICompanyRepository
+    public interface ICompanyRepository
     {
+        Task<bool> ExistsByTaxIdAsync(string taxId);
+
+        Task<bool> ExistsByCompanyAccessCodeAsync(string companyAccessCode);
+
+        Task AddCompanyAsync(Company company);
     }
 }

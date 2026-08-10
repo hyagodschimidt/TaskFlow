@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TaskFlow.Domain.Entities;
 
 namespace TaskFlow.Application.Interfaces.Repositories
 {
-    internal class IAppUserRepository
+    public interface IAppUserRepository
     {
+        public Task<bool> ExistsByEmailAsync(string email);
+
+        public Task AddAppUserAsync(AppUser appUser);
     }
 }
