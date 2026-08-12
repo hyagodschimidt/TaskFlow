@@ -6,27 +6,21 @@ using TaskFlow.Domain.Enums;
 public class TaskItem
 {
     public int Id { get; private set; }
-
     public string Title { get; private set; } = string.Empty;
-
     public string Description { get; private set; } = string.Empty;
-
     public TaskItemStatus Status { get; private set; }
-
     public TaskItemPriority? Priority { get; private set; }
-
     public int CreatedByUserId { get; private set; }
+    public AppUser CreatedByUser { get; private set; } = null!;
     public DateTime CreatedAt { get; private set; }
     public int AssignedToUserId { get; private set; }
-
+    public AppUser AssignedToUser { get; private set; } = null!;
     public DateTime? DueDate { get; private set; }
-
     public int CompanyId { get; private set; }
-
+    public Company Company { get; private set; } = null!;
     public string? CompletionReport { get; private set; }
-
     public DateTime? CompletedAt { get; private set; }
-    
+
     private TaskItem()
     {
     }
@@ -34,20 +28,19 @@ public class TaskItem
     public TaskItem(
         string title,
         string description,
-        int companyId,
-        int assignedToUserId,
-        int createdByUserId,
+        AppUser assignedToUser,
+        AppUser createdByUser,
+        Company company,
         TaskItemPriority? priority = null,
         DateTime? dueDate = null)
     {
         Title = title;
         Description = description;
-        CompanyId = companyId;
-        AssignedToUserId = assignedToUserId;
-        CreatedByUserId = createdByUserId;
+        Company = company;
+        AssignedToUser = assignedToUser;
+        CreatedByUser = createdByUser;
         Priority = priority;
         DueDate = dueDate;
-
         Status = TaskItemStatus.ToDo;
         CreatedAt = DateTime.UtcNow;
     }
