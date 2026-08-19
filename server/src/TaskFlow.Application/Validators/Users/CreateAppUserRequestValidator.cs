@@ -11,7 +11,7 @@ namespace TaskFlow.Application.Validators.Users
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.UserName)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredName);
 
             RuleFor(x => x.Email)

@@ -9,5 +9,7 @@ namespace TaskFlow.Application.Interfaces.Repositories
         Task<bool> ExistsByCompanyAccessCodeAsync(string companyAccessCode);
 
         Task AddCompanyAsync(Company company);
+
+        Task<Company?> GetByIdAsync(int id);
     }
 }
