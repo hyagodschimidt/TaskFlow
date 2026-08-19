@@ -3,6 +3,14 @@ using TaskFlow.Application.Interfaces.Security;
 using TaskFlow.Infrastructure.Security;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using TaskFlow.Application.Interfaces.Authentication;
+using TaskFlow.Api.Authentication;
+using TaskFlow.Application.Interfaces.Repositories;
+using TaskFlow.Infrastructure.Persistence.Repositories;
+using TaskFlow.Application.Validators.Users;
+using TaskFlow.Application.Interfaces.Persistence;
+using TaskFlow.Infrastructure.Persistence;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +37,13 @@ builder.Services
 builder.Services.AddAuthorization();
 builder.Services.Configure<JwtSettings>
     (builder.Configuration.GetSection("Jwt"));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateAppUserRequestValidator>();
 
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();        
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
