@@ -7,6 +7,7 @@ using TaskFlow.Application.Responses.Companies;
 using TaskFlow.Domain.Enums;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Application.Interfaces.Persistence;
+using FluentValidation;
 
 namespace TaskFlow.Application.UseCases.Companies
 {
@@ -16,22 +17,30 @@ namespace TaskFlow.Application.UseCases.Companies
         private readonly ICompanyRepository _companyRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<CreateCompanyRequest> _validator;
         public CreateCompanyUseCase(
             IAppUserRepository appUserRepository,
             ICompanyRepository companyRepository,
             IPasswordHasher passwordHasher,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IValidator<CreateCompanyRequest> validator)
         {
             _companyRepository = companyRepository;
             _appUserRepository = appUserRepository;
             _passwordHasher = passwordHasher;
             _unitOfWork = unitOfWork ;
+            _validator = validator;
         }
 
         public async Task<CompanyResponse> ExecuteAsync(CreateCompanyRequest request)
         {
+            var result = await _validator.ValidateAsync(request);
+            if (!result.IsValid) {
+                throw new ValidationException("Invalid request", result.Errors);
+            }
+
             string companyAccessCode;
-            bool existsCompanyAccessCode;
+            bool existsCompanyAccessCode; 
 
             var existsByTaxId = await _companyRepository.ExistsByTaxIdAsync(request.TaxId);
             if (existsByTaxId)
