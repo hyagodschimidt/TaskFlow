@@ -7,6 +7,7 @@ using TaskFlow.Application.Interfaces.UseCases;
 using TaskFlow.Application.Requests.Users;
 using TaskFlow.Application.Responses.Users;
 using TaskFlow.Domain.Entities;
+using TaskFlow.Domain.Enums;
 
 namespace TaskFlow.Application.UseCases.AppUsers
 {
@@ -61,7 +62,7 @@ namespace TaskFlow.Application.UseCases.AppUsers
                 userName: request.UserName,
                 email: request.Email,
                 passwordHash: passwordHash,
-                role: request.Role,
+                role: UserRole.Member,
                 company: company
                 
             );

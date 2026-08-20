@@ -40,6 +40,7 @@ builder.Services.Configure<JwtSettings>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateAppUserRequestValidator>();
 
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();        
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
