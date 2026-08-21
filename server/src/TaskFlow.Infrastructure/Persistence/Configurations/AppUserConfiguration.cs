@@ -12,7 +12,7 @@ namespace TaskFlow.Infrastructure.Persistence.Configurations
             builder.HasOne(user => user.Company)
                 .WithMany()
                 .HasForeignKey(user => user.CompanyId);
-            builder.Property(user => user.Name)
+            builder.Property(user => user.UserName)
                 .IsRequired()
                 .HasMaxLength(100);
             builder.Property(user => user.Email)

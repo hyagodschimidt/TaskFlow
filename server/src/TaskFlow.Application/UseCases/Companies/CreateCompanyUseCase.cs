@@ -74,7 +74,7 @@ namespace TaskFlow.Application.UseCases.Companies
             );
 
             var owner = new AppUser(
-                name: request.OwnerName,
+                userName: request.OwnerName,
                 email: request.OwnerEmail,
                 passwordHash: passwordHash,
                 company: company,
