@@ -11,6 +11,5 @@ namespace TaskFlow.Application.Requests.Users
 
         public string Password { get; set; } = string.Empty;
 
-        public Company? Company { get; internal set; }
     }
 }
