@@ -40,6 +40,11 @@ namespace TaskFlow.Application.UseCases.AppUsers
         public async Task<AppUserResponse> ExecuteAsync(CreateAppUserRequest request)
         {
 
+            if (_currentUser.Role != UserRole.Owner)
+            {
+                throw new Exception("You do not have permission to create a user");
+            }
+
             var result = await _validator.ValidateAsync(request);
             if (!result.IsValid)
             {
@@ -50,6 +55,7 @@ namespace TaskFlow.Application.UseCases.AppUsers
             {
                 throw new Exception("Email already exists");
             }
+
             var passwordHash = _passwordHasher.HashPassword(request.Password);
 
             var company = await _companyRepository.GetByIdAsync(_currentUser.CompanyId);
