@@ -11,6 +11,7 @@ using TaskFlow.Application.Validators.Users;
 using TaskFlow.Application.Interfaces.Persistence;
 using TaskFlow.Infrastructure.Persistence;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,9 @@ builder.Services.Configure<JwtSettings>
     (builder.Configuration.GetSection("Jwt"));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateAppUserRequestValidator>();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
