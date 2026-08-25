@@ -23,9 +23,9 @@ namespace TaskFlow.Infrastructure.Persistence.Configurations
                 .HasMaxLength(100);
             builder.Property(taskItem => taskItem.Description)
                 .IsRequired()
-                .HasMaxLength(1000);
+                .HasMaxLength(2000);
             builder.Property(taskItem => taskItem.CompletionReport)
-                .HasMaxLength(1000);
+                .HasMaxLength(2000);
         }
     }
     

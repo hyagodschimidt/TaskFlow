@@ -12,7 +12,8 @@ namespace TaskFlow.Application.Validators.Users
             RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.UserName)
-                .NotEmpty().WithMessage(ValidationMessages.RequiredName);
+                .NotEmpty().WithMessage(ValidationMessages.RequiredName)
+                .MaximumLength(100).WithMessage("Name must not exceed 100 characters.");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredEmail)
