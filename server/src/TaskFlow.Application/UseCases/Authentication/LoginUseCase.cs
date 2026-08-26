@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TaskFlow.Application.Exceptions;
 using TaskFlow.Application.Interfaces.Repositories;
 using TaskFlow.Application.Interfaces.Security;
 using TaskFlow.Application.Interfaces.UseCases;
@@ -33,14 +34,14 @@ namespace TaskFlow.Application.UseCases.Authentication
 
             if (user == null)
             {
-                throw new Exception("Email or password is invalid");
+                throw new InvalidCredentialsException("Email or password is invalid");
             }
 
             bool isPasswordValid =  _passwordHasher.VerifyPassword(request.Password, user.PasswordHash);
 
             if (!isPasswordValid)
             {
-                throw new Exception("Email or password is invalid");
+                throw new InvalidCredentialsException("Email or password is invalid");
             }
 
             var token = _tokenGenerator.GenerateToken(user.Id, user.CompanyId, user.Role);
