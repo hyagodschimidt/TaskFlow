@@ -12,11 +12,15 @@ using TaskFlow.Application.Interfaces.Persistence;
 using TaskFlow.Infrastructure.Persistence;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using TaskFlow.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 var jwtkey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT key is not configured.");
+
 
 builder.Services.AddOpenApi();
 builder.Services
@@ -40,10 +44,8 @@ builder.Services.Configure<JwtSettings>
     (builder.Configuration.GetSection("Jwt"));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateAppUserRequestValidator>();
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();        
@@ -53,6 +55,7 @@ builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
