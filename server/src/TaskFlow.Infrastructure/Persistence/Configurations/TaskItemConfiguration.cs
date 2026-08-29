@@ -11,13 +11,16 @@ namespace TaskFlow.Infrastructure.Persistence.Configurations
             builder.HasKey(taskItem => taskItem.Id);
             builder.HasOne(taskItem => taskItem.AssignedToUser)
                 .WithMany()
-                .HasForeignKey(taskItem => taskItem.AssignedToUserId);
+                .HasForeignKey(taskItem => taskItem.AssignedToUserId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(taskItem => taskItem.CreatedByUser)
                 .WithMany()
-                .HasForeignKey(taskItem => taskItem.CreatedByUserId);
+                .HasForeignKey(taskItem => taskItem.CreatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(taskItem => taskItem.Company)
                 .WithMany()
-                .HasForeignKey(taskItem => taskItem.CompanyId);
+                .HasForeignKey(taskItem => taskItem.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.Property(taskItem => taskItem.Title)
                 .IsRequired()
                 .HasMaxLength(100);

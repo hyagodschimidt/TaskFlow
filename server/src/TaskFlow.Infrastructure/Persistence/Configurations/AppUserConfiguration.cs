@@ -11,7 +11,8 @@ namespace TaskFlow.Infrastructure.Persistence.Configurations
             builder.HasKey(user => user.Id);
             builder.HasOne(user => user.Company)
                 .WithMany()
-                .HasForeignKey(user => user.CompanyId);
+                .HasForeignKey(user => user.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.Property(user => user.UserName)
                 .IsRequired()
                 .HasMaxLength(100);
