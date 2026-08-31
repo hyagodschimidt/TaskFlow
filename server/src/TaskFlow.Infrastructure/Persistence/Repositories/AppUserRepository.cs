@@ -28,6 +28,16 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
         public async Task<AppUser?> GetByEmailAsync(string email)
         {
             return  await _context.AppUsers.FirstOrDefaultAsync(u => u.Email == email);
+
+        }
+
+        public async Task<int?> GetCompanyIdByUserId(int userId)
+        {
+            var companyId = await _context.AppUsers
+                .Where(u => u.Id == userId)
+                .Select(u => (int?)u.CompanyId)
+                .FirstOrDefaultAsync();
+            return companyId;
         }
     }
 }

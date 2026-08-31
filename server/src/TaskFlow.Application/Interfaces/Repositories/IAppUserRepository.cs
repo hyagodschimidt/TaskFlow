@@ -9,5 +9,7 @@ namespace TaskFlow.Application.Interfaces.Repositories
         public Task AddAppUserAsync(AppUser appUser);
 
         Task<AppUser?> GetByEmailAsync(string email);
+
+        Task<int?> GetCompanyIdByUserId(int userId);
     }
 }
