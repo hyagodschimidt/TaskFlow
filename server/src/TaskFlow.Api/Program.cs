@@ -27,6 +27,7 @@ var jwtKey = builder.Configuration["Jwt:Key"]
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -67,6 +68,8 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
