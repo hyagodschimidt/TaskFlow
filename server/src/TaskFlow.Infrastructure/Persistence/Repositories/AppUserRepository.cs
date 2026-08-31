@@ -24,5 +24,10 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
             await _context.AppUsers.AddAsync(appUser);
             
         }
+
+        public async Task<AppUser?> GetByEmailAsync(string email)
+        {
+            return  await _context.AppUsers.FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TaskFlow.Application.Exceptions;
 using TaskFlow.Application.Interfaces.Authentication;
 using TaskFlow.Application.Interfaces.Persistence;
 using TaskFlow.Application.Interfaces.Repositories;
@@ -40,23 +41,32 @@ namespace TaskFlow.Application.UseCases.AppUsers
         public async Task<AppUserResponse> ExecuteAsync(CreateAppUserRequest request)
         {
 
+            if (_currentUser.Role != UserRole.Owner)
+            {
+                throw new ForbiddenException("You do not have permission to create a user");
+            }
+
             var result = await _validator.ValidateAsync(request);
+
             if (!result.IsValid)
             {
                 throw new ValidationException("Invalid request data", result.Errors);
             }
             var existsByEmail = await _appUserRepository.ExistsByEmailAsync(request.Email);
+
             if (existsByEmail)
             {
-                throw new Exception("Email already exists");
+                throw new ConflictException("Email already exists");
             }
-            var passwordHash = _passwordHasher.HashPassword(request.Password);
 
             var company = await _companyRepository.GetByIdAsync(_currentUser.CompanyId);
+
             if (company == null)
             {
-                throw new Exception("Company not found");
+                throw new NotFoundException("Company not found");
             }
+
+            var passwordHash = _passwordHasher.HashPassword(request.Password);
 
             var appUser = new AppUser(
                 userName: request.UserName,
@@ -64,13 +74,15 @@ namespace TaskFlow.Application.UseCases.AppUsers
                 passwordHash: passwordHash,
                 role: UserRole.Member,
                 company: company
-                
+
             );
+
             await _appUserRepository.AddAppUserAsync(appUser);
 
             await _unitOfWork.SaveChangesAsync();
 
-            return new AppUserResponse {
+            return new AppUserResponse
+            {
                 UserName = appUser.UserName,
                 Email = appUser.Email,
                 Id = appUser.Id,

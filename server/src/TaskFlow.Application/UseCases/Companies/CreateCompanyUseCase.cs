@@ -8,6 +8,7 @@ using TaskFlow.Domain.Enums;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Application.Interfaces.Persistence;
 using FluentValidation;
+using TaskFlow.Application.Exceptions;
 
 namespace TaskFlow.Application.UseCases.Companies
 {
@@ -45,12 +46,12 @@ namespace TaskFlow.Application.UseCases.Companies
             var existsByTaxId = await _companyRepository.ExistsByTaxIdAsync(request.TaxId);
             if (existsByTaxId)
             {
-                throw new Exception("Tax Id already exists");
+                throw new ConflictException("Tax Id already exists");
             }
             var existsByEmail = await _appUserRepository.ExistsByEmailAsync(request.OwnerEmail);
             if (existsByEmail)
             {
-                throw new Exception("Email already exists");
+                throw new ConflictException("Email already exists");
             }
 
             do

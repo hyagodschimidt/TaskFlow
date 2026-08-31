@@ -1,4 +1,5 @@
-﻿using TaskFlow.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskFlow.Application.Interfaces.Repositories;
 using TaskFlow.Domain.Entities;
 
 namespace TaskFlow.Infrastructure.Persistence.Repositories
@@ -12,19 +13,19 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public Task<bool> ExistsByTaxIdAsync(string taxId)
+        public async Task<bool> ExistsByTaxIdAsync(string taxId)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.AnyAsync(c => c.TaxId == taxId);
         }
 
-        public Task<bool> ExistsByCompanyAccessCodeAsync(string companyAccessCode)
+        public async Task<bool> ExistsByCompanyAccessCodeAsync(string companyAccessCode)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.AnyAsync(c => c.CompanyAccessCode == companyAccessCode);
         }
 
-        public Task AddCompanyAsync(Company company)
+        public async Task AddCompanyAsync(Company company)
         {
-            throw new NotImplementedException();
+            await _context.Companies.AddAsync(company);
         }
 
         public async Task<Company?> GetByIdAsync(int id)

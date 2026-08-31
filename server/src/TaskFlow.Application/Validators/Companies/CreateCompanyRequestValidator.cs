@@ -12,7 +12,8 @@ namespace TaskFlow.Application.Validators.Companies
             RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.CompanyName)
-                .NotEmpty().WithMessage(ValidationMessages.RequiredCompanyName);
+                .NotEmpty().WithMessage(ValidationMessages.RequiredCompanyName)
+                .MaximumLength(100).WithMessage("Company name must not exceed 100 characters.");
 
             RuleFor(x => x.TaxId)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredTaxId)

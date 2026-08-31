@@ -12,7 +12,7 @@ namespace TaskFlow.Application.Validators.Tasks
             RuleLevelCascadeMode = CascadeMode.Stop;
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredTitle)
-                .MaximumLength(50).WithMessage(ValidationMessages.TitleMaxLength)
+                .MaximumLength(100).WithMessage(ValidationMessages.TitleMaxLength)
                 .MinimumLength(5).WithMessage(ValidationMessages.TitleMinLength);
 
             RuleFor(x => x.Description)

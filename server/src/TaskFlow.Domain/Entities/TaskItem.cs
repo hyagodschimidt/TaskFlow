@@ -2,6 +2,7 @@
 
 using System;
 using TaskFlow.Domain.Enums;
+using TaskFlow.Domain.Exceptions;
 
 public class TaskItem
 {
@@ -49,25 +50,23 @@ public class TaskItem
     {
         if (Status != TaskItemStatus.ToDo)
         {
-            throw new InvalidOperationException("Task can only be started if it is in 'To Do' status.");
+            throw new InvalidTaskStateException("Task can only be started if it is in 'To Do' status.");
         }
         Status = TaskItemStatus.InProgress;
     }
 
     public void Complete(string report)
     {
-        if (string.IsNullOrWhiteSpace(report))
-        {
-            throw new ArgumentException("Completion report cannot be null or empty.", nameof(report));
-        }
-        if (Status == TaskItemStatus.Completed)
-        {
-            throw new InvalidOperationException("Task is already completed.");
-        }
         if (Status != TaskItemStatus.InProgress)
         {
-            throw new InvalidOperationException("Task can only be completed if it is in 'In Progress' status.");
+            throw new InvalidTaskStateException("Task can only be completed if it is in 'In Progress' status.");
         }
+
+        if (string.IsNullOrWhiteSpace(report))
+        {
+            throw new DomainValidationException("Completion report cannot be null or empty.");
+        }
+
         Status = TaskItemStatus.Completed;
         CompletionReport = report;
         CompletedAt = DateTime.UtcNow;
