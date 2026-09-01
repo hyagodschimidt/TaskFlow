@@ -1,30 +1,46 @@
-using Microsoft.IdentityModel.Tokens;
-using TaskFlow.Application.Interfaces.Security;
-using TaskFlow.Infrastructure.Security;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using TaskFlow.Application.Interfaces.Authentication;
-using TaskFlow.Api.Authentication;
-using TaskFlow.Application.Interfaces.Repositories;
-using TaskFlow.Infrastructure.Persistence.Repositories;
-using TaskFlow.Application.Validators.Users;
-using TaskFlow.Application.Interfaces.Persistence;
-using TaskFlow.Infrastructure.Persistence;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using System.Text;
+using TaskFlow.Api.Authentication;
 using TaskFlow.Api.Middlewares;
+using TaskFlow.Application.Interfaces.Authentication;
+using TaskFlow.Application.Interfaces.Persistence;
+using TaskFlow.Application.Interfaces.Repositories;
+using TaskFlow.Application.Interfaces.Security;
 using TaskFlow.Application.Interfaces.UseCases;
 using TaskFlow.Application.UseCases.AppUsers;
-using TaskFlow.Application.UseCases.Companies;
 using TaskFlow.Application.UseCases.Authentication;
-using Microsoft.Extensions.Options;
+using TaskFlow.Application.UseCases.Companies;
+using TaskFlow.Application.Validators.Users;
+using TaskFlow.Infrastructure.Persistence;
+using TaskFlow.Infrastructure.Persistence.Repositories;
+using TaskFlow.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Place your JWT token here, it's not necessary write bearer.",
+    });
+    c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+    });
+});
 builder.Services
     .AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
     .Configure<IOptions<JwtSettings>>((options, jwtSettings) =>
