@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using TaskFlow.Application.Interfaces.Persistence;
+using TaskFlow.Application.Exceptions;
 
 namespace TaskFlow.Infrastructure.Persistence
 {
@@ -13,9 +13,23 @@ namespace TaskFlow.Infrastructure.Persistence
         {
             _context = context;
         }
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            return _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException is SqlException sqlEx)
+                {
+                    if (sqlEx.Number == 2601 || sqlEx.Number == 2627)
+                    {
+                        throw new ConflictException("A resource with the same unique data already exists.");
+                    }
+                }
+                throw;
+            }
         }
     }
 }
