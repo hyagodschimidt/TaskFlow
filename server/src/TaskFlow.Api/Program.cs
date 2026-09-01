@@ -17,36 +17,46 @@ using TaskFlow.Application.Interfaces.UseCases;
 using TaskFlow.Application.UseCases.AppUsers;
 using TaskFlow.Application.UseCases.Companies;
 using TaskFlow.Application.UseCases.Authentication;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("JWT key is not configured.");
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+    .Configure<IOptions<JwtSettings>>((options, jwtSettings) =>
     {
+        var settings = jwtSettings.Value;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtKey)),
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidateIssuer = true,
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = settings.Issuer,
             ValidateAudience = true,
+            ValidAudience = settings.Audience,
             ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(settings.Key)),
+            ValidateIssuerSigningKey = true
         };
     });
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
 builder.Services.AddAuthorization();
-builder.Services.Configure<JwtSettings>
-    (builder.Configuration.GetSection("Jwt"));
+builder.Services
+    .AddOptions<JwtSettings>()
+    .Bind(builder.Configuration.GetSection("Jwt"))
+    .Validate(settings => !string.IsNullOrWhiteSpace(settings.Key), "JWT key must be configured.")
+    .Validate(settings => !string.IsNullOrWhiteSpace(settings.Issuer), "JWT issuer must be configured.")
+    .Validate(settings => !string.IsNullOrWhiteSpace(settings.Audience), "JWT audience must be configured.")
+    .Validate(settings => settings.ExpiresMinutes > 0, "JWT expiry minutes must be greater than zero.")
+    .ValidateOnStart();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateAppUserRequestValidator>();
 builder.Services.AddDbContext<AppDbContext>(options =>
