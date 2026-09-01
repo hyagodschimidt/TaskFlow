@@ -1,7 +1,72 @@
 services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${DB_SA_PASSWORD}
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+    restart: unless-stopped
+
+
+  migrate:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+
+    working_dir: /src
+
+    volumes:
+      - ./server:/src
+
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=TaskFlow;User Id=sa;Password=${DB_SA_PASSWORD};TrustServerCertificate=True;"
+
+    depends_on:
+      - db
+
+    profiles:
+      - tools
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+
+        echo "==> Restaurando dependências..."
+        dotnet restore /src/TaskFlow.slnx
+
+        echo "==> Instalando dotnet-ef..."
+        dotnet tool install \
+          --tool-path /tools \
+          dotnet-ef \
+          --version 10.0.10
+
+        echo "==> Aplicando migrations..."
+        /tools/dotnet-ef database update \
+          --project /src/src/TaskFlow.Infrastructure/TaskFlow.Infrastructure.csproj \
+          --startup-project /src/src/TaskFlow.Api/TaskFlow.Api.csproj
+
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
+
     ports:
       - "5137:5137"
+
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=TaskFlow;User Id=sa;Password=${DB_SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Key: ${JWT_KEY}
+
+    depends_on:
+      - db
+
+
+volumes:
+  sqlserver_data:
