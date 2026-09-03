@@ -1,0 +1,9 @@
+{
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+
+  "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+
+  "problems.decorations.enabled": true,
+  "explorer.decorations.badges": true,
+  "explorer.decorations.colors": true
+}
