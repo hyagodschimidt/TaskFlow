@@ -2,8 +2,6 @@ import type { Task } from '@/features/tasks/types/task'
 
 import type { DashboardAttention } from '../types/dashboard'
 
-const ATTENTION_LIMIT = 4
-
 const DUE_SOON_DAYS = 7
 const RECENTLY_CREATED_DAYS = 7
 
@@ -43,7 +41,6 @@ export function getAttentionTasks(
     .sort(
       (a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime(),
     )
-    .slice(0, ATTENTION_LIMIT)
 
   const dueSoon = activeTasks
     .filter((task) => {
@@ -58,7 +55,6 @@ export function getAttentionTasks(
     .sort(
       (a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime(),
     )
-    .slice(0, ATTENTION_LIMIT)
 
   const recentlyCreated = activeTasks
     .filter((task) => new Date(task.createdAt) >= recentlyCreatedLimit)
@@ -66,7 +62,6 @@ export function getAttentionTasks(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     )
-    .slice(0, ATTENTION_LIMIT)
 
   return {
     overdue,

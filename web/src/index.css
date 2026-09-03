@@ -11,11 +11,11 @@
 
 :root {
   /* Application */
-  --background: #f5f6f8;
-  --surface: #f9fafb;
-  --layer: #ffffff;
-  --overlay: #dfe3e8;
-  --skeleton: #e1e5ea;
+  --background: #f8f9fb;
+  --surface: #f3f5f7;
+  --layer: #eceff3;
+  --overlay: #d7dce3;
+  --skeleton: #e2e6eb;
 
   /* Content */
   --foreground: #111318;

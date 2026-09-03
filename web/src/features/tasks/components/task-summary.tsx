@@ -1,14 +1,16 @@
-import {
-  CircleCheck,
-  CircleDashed,
-  CirclePlay,
-  TriangleAlert,
-} from 'lucide-react'
+import { CircleCheck, CircleDashed, Loader, TriangleAlert } from 'lucide-react'
 
 import type { TaskSummary as TaskSummaryType } from '../types/task-summary'
+import { TaskSummaryCard } from './task-summary-card'
 
 type TaskSummaryProps = {
   summary: TaskSummaryType
+}
+
+function getPercentage(value: number, total: number) {
+  if (total === 0) return 0
+
+  return Math.round((value / total) * 100)
 }
 
 export function TaskSummary({ summary }: TaskSummaryProps) {
@@ -16,53 +18,63 @@ export function TaskSummary({ summary }: TaskSummaryProps) {
     {
       label: 'Pendentes',
       value: summary.pending,
+      percentage: getPercentage(summary.pending, summary.total),
       icon: CircleDashed,
-      color: 'var(--status-pending)',
+      styles: {
+        background: 'bg-pending/10',
+        border: 'border-pending/25',
+        icon: 'text-pending',
+        hover: 'hover:border-pending/35',
+      },
     },
+
     {
       label: 'Em andamento',
       value: summary.inProgress,
-      icon: CirclePlay,
-      color: 'var(--status-in-progress)',
+      percentage: getPercentage(summary.inProgress, summary.total),
+      icon: Loader,
+      styles: {
+        background: 'bg-in-progress/12',
+        border: 'border-in-progress/25',
+        icon: 'text-in-progress',
+        hover: 'hover:border-in-progress/35',
+      },
     },
+
     {
       label: 'Concluídas',
       value: summary.completed,
+      percentage: getPercentage(summary.completed, summary.total),
+      progress: getPercentage(summary.completed, summary.total),
       icon: CircleCheck,
-      color: 'var(--status-completed)',
+      styles: {
+        background: 'bg-completed/10',
+        border: 'border-completed/25',
+        icon: 'text-completed',
+        bar: 'bg-completed',
+        hover: 'hover:border-completed/35',
+      },
     },
+
     {
       label: 'Atrasadas',
       value: summary.overdue,
+      percentage: getPercentage(summary.overdue, summary.total),
       icon: TriangleAlert,
-      color: 'var(--status-overdue)',
+      styles: {
+        background: 'bg-overdue/10',
+        border: 'border-overdue/25',
+        icon: 'text-overdue',
+        hover: 'hover:border-overdue/40',
+      },
     },
   ]
 
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-      {items.map((item) => {
-        const Icon = item.icon
-
-        return (
-          <div
-            key={item.label}
-            className="border-overlay bg-layer rounded-xl border p-4"
-          >
-            <div className="flex items-center justify-between">
-              <small className="text-foreground-secondary uppercase">
-                {item.label}
-              </small>
-
-              <Icon size={18} style={{ color: item.color }} />
-            </div>
-
-            <strong className="mt-3 block font-semibold tracking-tight">
-              {item.value}
-            </strong>
-          </div>
-        )
-      })}
+      {items.map((item) => (
+        <TaskSummaryCard key={item.label} {...item} />
+      ))}
     </div>
   )
 }

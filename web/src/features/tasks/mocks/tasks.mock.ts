@@ -320,8 +320,8 @@ export const mockTasks: Task[] = [
 
   {
     id: 18,
-    title: 'Otimizar carregamento da dashboard',
-    description: 'Revisar renderização e carregamento inicial.',
+    title: 'Otimizar carregamento de tarefas',
+    description: 'Revisar renderização e carregamento final.',
     status: 'pending',
     priority: 'high',
 
@@ -330,7 +330,7 @@ export const mockTasks: Task[] = [
     companyId: 1,
 
     createdAt: dateFromReference(0),
-    dueDate: dateFromReference(14),
+    dueDate: dateFromReference(15),
 
     completionReport: null,
     completedAt: null,

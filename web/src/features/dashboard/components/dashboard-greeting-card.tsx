@@ -1,4 +1,4 @@
-import { ArrowRight, Briefcase } from 'lucide-react'
+import { ArrowRight, Loader } from 'lucide-react'
 import { useState } from 'react'
 
 import { getGreeting } from '@/features/dashboard/utils/get-greeting'
@@ -14,7 +14,7 @@ export function DashboardGreetingCard({
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-(--greeting-border) bg-(--greeting-background)">
-      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-(--greeting-highlight) to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px animate-pulse bg-linear-to-r from-transparent via-(--greeting-highlight) to-transparent" />
 
       <div
         className={`absolute inset-y-0 right-0 w-48 ${greeting.rightGlow}`}
@@ -31,7 +31,7 @@ export function DashboardGreetingCard({
 
         <div className="mt-3">
           <div className="flex items-center gap-2">
-            <Briefcase size={18} className="text-foreground-secondary" />
+            <Loader size={18} className="text-in-progress" />
             <p className="text-foreground-secondary text-sm">
               Você tem <span className="text-foreground">{inProgress}</span>{' '}
               {inProgress === 1

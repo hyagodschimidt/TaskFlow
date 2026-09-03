@@ -7,11 +7,7 @@ export function DashboardPage() {
 
   return (
     <div className="mx-auto w-full max-w-[1600px] p-6 lg:p-8">
-      <DashboardHeader
-        period={dashboard.period}
-        periodLabel={dashboard.periodLabel}
-        onPeriodChange={dashboard.setPeriod}
-      />
+      <DashboardHeader />
       <DashboardContent dashboard={dashboard} />
     </div>
   )
