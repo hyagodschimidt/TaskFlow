@@ -68,5 +68,28 @@ services:
       - db
 
 
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+
+    working_dir: /app
+
+    ports:
+      - "5173:5173"
+
+    volumes:
+      - ./web:/app
+      - web_node_modules:/app/node_modules
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pnpm install --frozen-lockfile
+        pnpm dev --host 0.0.0.0
+
 volumes:
   sqlserver_data:
+  web_node_modules:
