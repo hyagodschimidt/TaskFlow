@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 
-import { useAppRouter } from '@/app/router/user-app-router'
+import { useAppRouter } from '@/app/router/use-app-router'
 import { authStorage } from '@/core/auth/auth-storage'
 
 import { type LoginFormData, loginSchema } from '../schemas/login-schema'
@@ -26,7 +26,7 @@ export function useLogin() {
     onSuccess: ({ token }) => {
       authStorage.setToken(token)
 
-      router.replace('home')
+      router.replace('dashboard')
     },
   })
 

@@ -1,5 +1,7 @@
 export const routes = {
-  home: () => '/',
+  dashboard: () => '/',
+
+  myTasks: () => '/tasks',
 
   onboarding: () => '/onboarding/create',
 
