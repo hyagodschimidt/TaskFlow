@@ -3,7 +3,7 @@ import type { TaskSummary } from '../types/task-summary'
 
 export function getTaskSummary(
   tasks: Task[],
-  referenceDate: Date,
+  referenceDate: Date = new Date(),
 ): TaskSummary {
   const pending = tasks.filter((task) => task.status === 'pending').length
 
