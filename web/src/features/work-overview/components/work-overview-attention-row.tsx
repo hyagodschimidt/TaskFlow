@@ -1,17 +1,17 @@
 import { TaskPriorityIndicator } from '@/features/tasks/components/task-priority-indicator'
 import type { Task } from '@/features/tasks/types/task'
 
-type DashboardAttentionRowProps = {
+type WorkOverviewAttentionRowProps = {
   task: Task
   dateLabel: string
   dateClassName?: string
 }
 
-export function DashboardAttentionRow({
+export function WorkOverviewAttentionRow({
   task,
   dateLabel,
   dateClassName = 'text-foreground-secondary',
-}: DashboardAttentionRowProps) {
+}: WorkOverviewAttentionRowProps) {
   return (
     <div className="group bg-surface hover:bg-layer grid grid-cols-[minmax(0,1fr)_60px_140px] items-center px-4 py-3 transition-colors">
       <div className="min-w-0">

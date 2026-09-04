@@ -55,7 +55,7 @@
   --greeting-border: rgba(76, 111, 255, 0.18);
   --greeting-highlight: rgba(76, 111, 255, 0.55);
 
-  --greeting-background: #f8f9ff;
+  --greeting-background: var(--surface);
 
   --greeting-primary-glow: rgba(76, 111, 255, 0.18);
   --greeting-morning-glow: rgba(245, 181, 52, 0.18);
@@ -145,8 +145,8 @@
   --status-completed: #22d36b;
   --status-overdue: #ff6b6b;
 
-  /* greeting dashboard */
-  --greeting-background: var(--layer);
+  /* greeting work-overview */
+  --greeting-background: var(--surface);
   --greeting-border: rgba(255, 255, 255, 0.08);
   --greeting-highlight: rgba(76, 111, 255, 0.5);
 

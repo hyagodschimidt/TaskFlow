@@ -2,14 +2,14 @@ import { ChevronRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import type { Task } from '@/features/tasks/types/task'
+import { WorkOverviewAttentionRow } from '@/features/work-overview/components/work-overview-attention-row'
 
 import {
   getCreatedAtLabel,
   getDueDateLabel,
 } from '../utils/get-attention-date-label'
-import { DashboardAttentionRow } from './dashboard-attention-row'
 
-type DashboardAttentionGroupProps = {
+type WorkOverviewAttentionGroupProps = {
   title: string
   icon: ReactNode
 
@@ -20,13 +20,13 @@ type DashboardAttentionGroupProps = {
   dateClassName?: string
 }
 
-export function DashboardAttentionGroup({
+export function WorkOverviewAttentionGroup({
   title,
   icon,
   tasks,
   dateType,
   dateClassName,
-}: DashboardAttentionGroupProps) {
+}: WorkOverviewAttentionGroupProps) {
   const visibleTasks = tasks.slice(0, 3)
 
   return (
@@ -59,7 +59,7 @@ export function DashboardAttentionGroup({
               : getCreatedAtLabel(task.createdAt)
 
           return (
-            <DashboardAttentionRow
+            <WorkOverviewAttentionRow
               key={task.id}
               task={task}
               dateLabel={dateLabel}

@@ -27,7 +27,7 @@ export function AppSidebar() {
       <nav className="flex flex-1 flex-col gap-6 p-4">
         <SidebarSection title="Principal">
           <SidebarLink
-            to={routes.dashboard()}
+            to={routes.workOverview()}
             icon={LayoutDashboard}
             label="Dashboard"
             end

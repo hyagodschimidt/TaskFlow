@@ -1,5 +1,5 @@
 export const routes = {
-  dashboard: () => '/',
+  workOverview: () => '/',
 
   myTasks: () => '/tasks',
 

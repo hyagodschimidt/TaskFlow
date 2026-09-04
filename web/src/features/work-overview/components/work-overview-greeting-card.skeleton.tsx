@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
-export function DashboardGreetingCardSkeleton() {
+export function WorkOverviewGreetingCardSkeleton() {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-(--greeting-border) bg-(--greeting-background)">
       <div className="relative p-6">

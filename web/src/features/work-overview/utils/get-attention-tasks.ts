@@ -1,6 +1,6 @@
 import type { Task } from '@/features/tasks/types/task'
 
-import type { DashboardAttention } from '../types/dashboard'
+import type { WorkOverviewAttention } from '../types/work-overview'
 
 const DUE_SOON_DAYS = 7
 const RECENTLY_CREATED_DAYS = 7
@@ -20,7 +20,7 @@ function subtractDays(date: Date, days: number) {
 export function getAttentionTasks(
   tasks: Task[],
   referenceDate = new Date(),
-): DashboardAttention {
+): WorkOverviewAttention {
   const dueSoonLimit = addDays(referenceDate, DUE_SOON_DAYS)
 
   const recentlyCreatedLimit = subtractDays(

@@ -2,7 +2,7 @@ import { endOfWeek, isWithinInterval, startOfWeek } from 'date-fns'
 
 import type { Task } from '@/features/tasks/types/task'
 
-export function getDashboardShortcuts(
+export function getWorkOverviewShortcuts(
   tasks: Task[],
   referenceDate = new Date(),
 ) {

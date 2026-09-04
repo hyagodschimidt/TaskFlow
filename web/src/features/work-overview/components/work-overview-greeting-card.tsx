@@ -1,15 +1,15 @@
 import { ArrowRight, Loader } from 'lucide-react'
 import { useState } from 'react'
 
-import { getGreeting } from '@/features/dashboard/utils/get-greeting'
+import { getGreeting } from '@/features/work-overview/utils/get-greeting'
 
-type DashboardGreetingCardProps = {
+type WorkOverviewGreetingCardProps = {
   inProgress: number
 }
 
-export function DashboardGreetingCard({
+export function WorkOverviewGreetingCard({
   inProgress,
-}: DashboardGreetingCardProps) {
+}: WorkOverviewGreetingCardProps) {
   const [greeting] = useState(() => getGreeting())
 
   return (

@@ -50,7 +50,7 @@ function AttentionGroupSkeleton() {
   )
 }
 
-export function DashboardAttentionSkeleton() {
+export function WorkOverviewAttentionSkeleton() {
   return (
     <section>
       <div>

@@ -2,7 +2,7 @@ import { ChevronRight, Diamond } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-type DashboardShortcut = {
+type WorkOverviewShortcut = {
   label: string
   description: string
   count: number
@@ -11,14 +11,14 @@ type DashboardShortcut = {
   href: string
 }
 
-type DashboardShortcutsProps = {
+type WorkOverviewShortcutsProps = {
   urgentThisWeekCount: number
 }
 
-export function DashboardShortcuts({
+export function WorkOverviewShortcuts({
   urgentThisWeekCount,
-}: DashboardShortcutsProps) {
-  const shortcuts: DashboardShortcut[] = [
+}: WorkOverviewShortcutsProps) {
+  const shortcuts: WorkOverviewShortcut[] = [
     {
       label: 'Urgentes nesta semana',
       description: 'Tarefas urgentes com prazo nesta semana.',

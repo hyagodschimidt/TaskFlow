@@ -1,6 +1,6 @@
 import type { Task } from '@/features/tasks/types/task'
 
-export type DashboardAttention = {
+export type WorkOverviewAttention = {
   overdue: Task[]
   dueSoon: Task[]
   recentlyCreated: Task[]

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
-export function DashboardShortcutsSkeleton() {
+export function WorkOverviewShortcutsSkeleton() {
   return (
     <section>
       <Skeleton className="h-5 w-28" />

@@ -1,13 +1,16 @@
 import { AlertTriangle, Clock3, Sparkles } from 'lucide-react'
 
-import type { DashboardAttention as DashboardAttentionType } from '../types/dashboard'
-import { DashboardAttentionGroup } from './dashboard-attention-group'
+import { WorkOverviewAttentionGroup } from '@/features/work-overview/components/work-overview-attention-group'
 
-type DashboardAttentionProps = {
-  attention: DashboardAttentionType
+import type { WorkOverviewAttention as WorkOverviewAttentionType } from '../types/work-overview'
+
+type WorkOverviewAttentionProps = {
+  attention: WorkOverviewAttentionType
 }
 
-export function DashboardAttention({ attention }: DashboardAttentionProps) {
+export function WorkOverviewAttention({
+  attention,
+}: WorkOverviewAttentionProps) {
   return (
     <section>
       <div>
@@ -19,7 +22,7 @@ export function DashboardAttention({ attention }: DashboardAttentionProps) {
       </div>
 
       <div className="mt-4 grid gap-4">
-        <DashboardAttentionGroup
+        <WorkOverviewAttentionGroup
           title="Atrasadas"
           tasks={attention.overdue}
           dateType="dueDate"
@@ -27,7 +30,7 @@ export function DashboardAttention({ attention }: DashboardAttentionProps) {
           icon={<AlertTriangle size={16} className="text-overdue" />}
         />
 
-        <DashboardAttentionGroup
+        <WorkOverviewAttentionGroup
           title="Próximas de vencer"
           tasks={attention.dueSoon}
           dateType="dueDate"
@@ -35,7 +38,7 @@ export function DashboardAttention({ attention }: DashboardAttentionProps) {
           icon={<Clock3 size={16} className="text-warning" />}
         />
 
-        <DashboardAttentionGroup
+        <WorkOverviewAttentionGroup
           title="Criadas recentemente"
           tasks={attention.recentlyCreated}
           dateType="createdAt"

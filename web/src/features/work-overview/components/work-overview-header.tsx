@@ -2,11 +2,11 @@ import { Bell, UserRound } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-export function DashboardHeader() {
+export function WorkOverviewHeader() {
   return (
     <header className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
       <div>
-        <h2 className="font-semibold tracking-tight">Dashboard</h2>
+        <h2 className="font-semibold tracking-tight">WorkOverview</h2>
         <p className="text-muted-foreground mt-1">
           Tenha uma visão geral das suas tarefas.
         </p>

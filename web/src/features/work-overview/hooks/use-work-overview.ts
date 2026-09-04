@@ -1,11 +1,11 @@
-import { getDashboardShortcuts } from '@/features/dashboard/utils/get-dashboard-shortcuts'
 import { useMyTasks } from '@/features/tasks/hooks/use-my-tasks'
 import { MOCK_REFERENCE_DATE } from '@/features/tasks/mocks/tasks.mock'
 import { getTaskSummary } from '@/features/tasks/utils/get-task-summary'
+import { getWorkOverviewShortcuts } from '@/features/work-overview/utils/get-work-overview-shortcuts'
 
 import { getAttentionTasks } from '../utils/get-attention-tasks'
 
-export function useDashboard() {
+export function useWorkOverview() {
   const referenceDate = MOCK_REFERENCE_DATE
 
   const tasksQuery = useMyTasks()
@@ -29,6 +29,6 @@ export function useDashboard() {
 
     attention: getAttentionTasks(tasksQuery.data, referenceDate),
 
-    shortcuts: getDashboardShortcuts(tasksQuery.data, referenceDate),
+    shortcuts: getWorkOverviewShortcuts(tasksQuery.data, referenceDate),
   }
 }

@@ -26,7 +26,7 @@ export function useLogin() {
     onSuccess: ({ token }) => {
       authStorage.setToken(token)
 
-      router.replace('dashboard')
+      router.replace('workOverview')
     },
   })
 
