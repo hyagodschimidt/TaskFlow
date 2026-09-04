@@ -5,7 +5,7 @@ import { routes } from '@/app/router/routes'
 import { LoginPage } from '@/pages/auth/login-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 import { OnboardingPage } from '@/pages/onboarding/create-company-page'
-import { MyTasksPage } from '@/pages/tasks/my-tasks-page'
+import { TaskWorkspacePage } from '@/pages/task-workspace/task-workspace-page'
 import { WorkOverviewPage } from '@/pages/work-overview/work-overview-page'
 
 export const router = createBrowserRouter([
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'tasks',
-        element: <MyTasksPage />,
+        element: <TaskWorkspacePage />,
       },
     ],
   },

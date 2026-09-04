@@ -1,4 +1,4 @@
-import { useMyTasks } from '@/features/tasks/hooks/use-my-tasks'
+import { useTasks } from '@/features/tasks/hooks/use-tasks'
 import { MOCK_REFERENCE_DATE } from '@/features/tasks/mocks/tasks.mock'
 import { getTaskSummary } from '@/features/tasks/utils/get-task-summary'
 import { getWorkOverviewShortcuts } from '@/features/work-overview/utils/get-work-overview-shortcuts'
@@ -8,7 +8,7 @@ import { getAttentionTasks } from '../utils/get-attention-tasks'
 export function useWorkOverview() {
   const referenceDate = MOCK_REFERENCE_DATE
 
-  const tasksQuery = useMyTasks()
+  const tasksQuery = useTasks()
 
   if (tasksQuery.isPending) {
     return {

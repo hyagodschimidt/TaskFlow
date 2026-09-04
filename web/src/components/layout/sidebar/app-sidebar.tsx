@@ -34,7 +34,7 @@ export function AppSidebar() {
           />
 
           <SidebarLink
-            to={routes.myTasks()}
+            to={routes.taskWorkspace()}
             icon={ListTodo}
             label="Minhas tarefas"
           />

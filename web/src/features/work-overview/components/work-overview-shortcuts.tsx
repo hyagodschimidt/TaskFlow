@@ -1,37 +1,64 @@
-import { ChevronRight, Diamond } from 'lucide-react'
+import { AlertCircle, ChevronRight, Diamond, Loader } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
+import { getTaskWorkspaceHref } from '@/features/task-workspace/utils/get-task-workspace-href'
 import { cn } from '@/lib/utils'
 
 type WorkOverviewShortcut = {
   label: string
   description: string
-  count: number
   icon: typeof Diamond
-  style: { icon: string; border: string }
+
+  style: {
+    icon: string
+    border: string
+  }
+
   href: string
 }
 
-type WorkOverviewShortcutsProps = {
-  urgentThisWeekCount: number
-}
-
-export function WorkOverviewShortcuts({
-  urgentThisWeekCount,
-}: WorkOverviewShortcutsProps) {
+export function WorkOverviewShortcuts() {
   const shortcuts: WorkOverviewShortcut[] = [
     {
       label: 'Urgentes nesta semana',
       description: 'Tarefas urgentes com prazo nesta semana.',
-      count: urgentThisWeekCount,
       icon: Diamond,
       style: {
         icon: 'text-urgent',
         border: 'border-urgent',
       },
-      href: '/tasks?priority=urgent&due=this-week',
+      href: getTaskWorkspaceHref({
+        priority: 'urgent',
+        due: 'this-week',
+      }),
+    },
+    {
+      label: 'Pendentes urgentes',
+      description: 'Tarefas urgentes que ainda não foram iniciadas.',
+      icon: AlertCircle,
+      style: {
+        icon: 'text-urgent',
+        border: 'border-urgent',
+      },
+      href: getTaskWorkspaceHref({
+        status: 'pending',
+        priority: 'urgent',
+      }),
+    },
+    {
+      label: 'Urgentes em andamento',
+      description: 'Tarefas urgentes que já estão em execução.',
+      icon: Loader,
+      style: {
+        icon: 'text-in-progress',
+        border: 'border-in-progress',
+      },
+      href: getTaskWorkspaceHref({
+        status: 'in_progress',
+        priority: 'urgent',
+      }),
     },
   ]
-
   return (
     <section>
       <h4 className="font-semibold tracking-tight">Acessos rápidos</h4>
@@ -41,9 +68,9 @@ export function WorkOverviewShortcuts({
           const Icon = shortcut.icon
 
           return (
-            <a
+            <Link
               key={shortcut.label}
-              href={shortcut.href}
+              to={shortcut.href}
               className="border-overlay bg-surface hover:bg-layer group flex items-center justify-between rounded-xl border px-4 py-2 transition-colors"
             >
               <div className="flex min-w-0 items-center gap-3">
@@ -59,9 +86,6 @@ export function WorkOverviewShortcuts({
                 <div className="min-w-0">
                   <div className="flex gap-3">
                     <p className="font-medium">{shortcut.label}</p>
-                    <small className="bg-overlay text-foreground-secondary rounded-full px-2 py-0.5 font-bold">
-                      {shortcut.count}
-                    </small>
                   </div>
 
                   <small className="text-foreground-secondary">
@@ -74,7 +98,7 @@ export function WorkOverviewShortcuts({
                 Ver tarefas
                 <ChevronRight size={14} />
               </div>
-            </a>
+            </Link>
           )
         })}
       </div>

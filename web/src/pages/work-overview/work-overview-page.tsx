@@ -6,7 +6,7 @@ export function WorkOverviewPage() {
   const workOverviewData = useWorkOverview()
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] p-6 lg:p-8">
+    <div className="mx-auto w-full max-w-[1600px] p-6 pb-10 lg:p-8 lg:pb-16">
       <WorkOverviewHeader />
       <WorkOverviewContent workOverviewData={workOverviewData} />
     </div>

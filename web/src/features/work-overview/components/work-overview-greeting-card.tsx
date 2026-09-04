@@ -1,6 +1,8 @@
 import { ArrowRight, Loader } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
+import { routes } from '@/app/router/routes'
 import { getGreeting } from '@/features/work-overview/utils/get-greeting'
 
 type WorkOverviewGreetingCardProps = {
@@ -11,6 +13,7 @@ export function WorkOverviewGreetingCard({
   inProgress,
 }: WorkOverviewGreetingCardProps) {
   const [greeting] = useState(() => getGreeting())
+  const workspaceTaskHref = routes.taskWorkspace()
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-(--greeting-border) bg-(--greeting-background)">
@@ -42,13 +45,13 @@ export function WorkOverviewGreetingCard({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="text-primary mt-6 flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-80"
+        <Link
+          to={workspaceTaskHref}
+          className="text-primary mt-6 flex w-fit items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-80"
         >
           Ver minhas tarefas
-          <ArrowRight size={16} />
-        </button>
+          <ArrowRight className="size-4" />
+        </Link>
       </div>
     </div>
   )

@@ -37,16 +37,16 @@
   --destructive: #d53232;
 
   /* Priority */
-  --priority-urgent: #9238cf;
-  --priority-high: #d85f00;
-  --priority-medium: #9a7900;
-  --priority-low: #607794;
+  --priority-urgent: #6a1bb9;
+  --priority-high: #b34700;
+  --priority-medium: #cc8a00;
+  --priority-low: #4a5d73;
 
   /* Task status */
-  --status-pending: #68707d;
-  --status-in-progress: #3f68db;
-  --status-completed: #159447;
-  --status-overdue: #df4f4f;
+  --status-pending: #7c8594;
+  --status-in-progress: #3f6fe5;
+  --status-completed: #1ea857;
+  --status-overdue: #e05252;
 
   /* Radius */
   --radius: 0.625rem;
@@ -68,7 +68,7 @@
   --card: var(--surface);
   --card-foreground: var(--foreground);
 
-  --popover: var(--surface);
+  --popover: var(--layer);
   --popover-foreground: var(--foreground);
 
   --secondary: var(--layer);

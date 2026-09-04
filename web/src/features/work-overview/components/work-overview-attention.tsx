@@ -1,5 +1,6 @@
 import { AlertTriangle, Clock3, Sparkles } from 'lucide-react'
 
+import { getTaskWorkspaceHref } from '@/features/task-workspace/utils/get-task-workspace-href'
 import { WorkOverviewAttentionGroup } from '@/features/work-overview/components/work-overview-attention-group'
 
 import type { WorkOverviewAttention as WorkOverviewAttentionType } from '../types/work-overview'
@@ -11,6 +12,18 @@ type WorkOverviewAttentionProps = {
 export function WorkOverviewAttention({
   attention,
 }: WorkOverviewAttentionProps) {
+  const overdueHref = getTaskWorkspaceHref({
+    due: 'overdue',
+  })
+
+  const dueSoonHref = getTaskWorkspaceHref({
+    preset: 'due-soon',
+  })
+
+  const recentlyCreatedHref = getTaskWorkspaceHref({
+    preset: 'recently-created',
+  })
+
   return (
     <section>
       <div>
@@ -28,6 +41,7 @@ export function WorkOverviewAttention({
           dateType="dueDate"
           dateClassName="text-overdue"
           icon={<AlertTriangle size={16} className="text-overdue" />}
+          href={overdueHref}
         />
 
         <WorkOverviewAttentionGroup
@@ -36,6 +50,7 @@ export function WorkOverviewAttention({
           dateType="dueDate"
           dateClassName="text-warning"
           icon={<Clock3 size={16} className="text-warning" />}
+          href={dueSoonHref}
         />
 
         <WorkOverviewAttentionGroup
@@ -43,6 +58,7 @@ export function WorkOverviewAttention({
           tasks={attention.recentlyCreated}
           dateType="createdAt"
           icon={<Sparkles size={16} className="text-primary" />}
+          href={recentlyCreatedHref}
         />
       </div>
     </section>

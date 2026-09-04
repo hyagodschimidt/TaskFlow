@@ -63,9 +63,7 @@ export function TaskPriorityIndicator({
       <Icon size={14} strokeWidth={2.25} className="shrink-0" />
 
       {showLabel && (
-        <small className="text-foreground-secondary font-medium">
-          {config.label}
-        </small>
+        <p className="text-foreground-secondary font-medium">{config.label}</p>
       )}
     </div>
   )

@@ -48,9 +48,7 @@ export function WorkOverviewContent({
           inProgress={workOverviewData.summary.inProgress}
         />
         <WorkOverviewAttention attention={workOverviewData.attention} />
-        <WorkOverviewShortcuts
-          urgentThisWeekCount={workOverviewData.shortcuts.urgentThisWeek}
-        />
+        <WorkOverviewShortcuts />
       </section>
 
       <aside className="min-w-0">
