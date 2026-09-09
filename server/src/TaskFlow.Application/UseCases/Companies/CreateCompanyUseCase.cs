@@ -9,6 +9,7 @@ using TaskFlow.Domain.Entities;
 using TaskFlow.Application.Interfaces.Persistence;
 using FluentValidation;
 using TaskFlow.Application.Exceptions;
+using TaskFlow.Application.Normalization;
 
 namespace TaskFlow.Application.UseCases.Companies
 {
@@ -41,14 +42,16 @@ namespace TaskFlow.Application.UseCases.Companies
             }
 
             string companyAccessCode;
-            bool existsCompanyAccessCode; 
+            bool existsCompanyAccessCode;
 
-            var existsByTaxId = await _companyRepository.ExistsByTaxIdAsync(request.TaxId);
+            var normalizedTaxId = TaxIdNormalizer.Normalize(request.TaxId);
+            var normalizedEmail = EmailNormalizer.Normalize(request.OwnerEmail);
+            var existsByTaxId = await _companyRepository.ExistsByTaxIdAsync(normalizedTaxId);
             if (existsByTaxId)
             {
                 throw new ConflictException("Tax Id already exists");
             }
-            var existsByEmail = await _appUserRepository.ExistsByEmailAsync(request.OwnerEmail);
+            var existsByEmail = await _appUserRepository.ExistsByEmailAsync(normalizedEmail);
             if (existsByEmail)
             {
                 throw new ConflictException("Email already exists");
@@ -68,7 +71,7 @@ namespace TaskFlow.Application.UseCases.Companies
 
             var company = new Company(
                 name: request.CompanyName,
-                taxId: request.TaxId,
+                taxId: normalizedTaxId,
                 companyAccessCode: companyAccessCode,
                 priorityAccessPolicy: request.PriorityAccessPolicy,
                 deadlineMode: request.DeadlineMode
@@ -76,7 +79,7 @@ namespace TaskFlow.Application.UseCases.Companies
 
             var owner = new AppUser(
                 userName: request.OwnerName,
-                email: request.OwnerEmail,
+                email: normalizedEmail,
                 passwordHash: passwordHash,
                 company: company,
                 role: UserRole.Owner

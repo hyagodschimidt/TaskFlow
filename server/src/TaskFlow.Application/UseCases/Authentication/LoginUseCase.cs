@@ -3,6 +3,7 @@ using TaskFlow.Application.Exceptions;
 using TaskFlow.Application.Interfaces.Repositories;
 using TaskFlow.Application.Interfaces.Security;
 using TaskFlow.Application.Interfaces.UseCases;
+using TaskFlow.Application.Normalization;
 using TaskFlow.Application.Requests.Auth;
 using TaskFlow.Application.Responses.Auth;
 
@@ -30,7 +31,8 @@ namespace TaskFlow.Application.UseCases.Authentication
                 throw new ValidationException(result.Errors);
             }
 
-            var user = await _appUserRepository.GetByEmailAsync(request.Email);
+            var normalizedEmail = EmailNormalizer.Normalize(request.Email);
+            var user = await _appUserRepository.GetByEmailAsync(normalizedEmail);
 
             if (user == null)
             {

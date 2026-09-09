@@ -5,6 +5,7 @@ using TaskFlow.Application.Interfaces.Persistence;
 using TaskFlow.Application.Interfaces.Repositories;
 using TaskFlow.Application.Interfaces.Security;
 using TaskFlow.Application.Interfaces.UseCases;
+using TaskFlow.Application.Normalization;
 using TaskFlow.Application.Requests.Users;
 using TaskFlow.Application.Responses.Users;
 using TaskFlow.Domain.Entities;
@@ -52,7 +53,8 @@ namespace TaskFlow.Application.UseCases.AppUsers
             {
                 throw new ValidationException("Invalid request data", result.Errors);
             }
-            var existsByEmail = await _appUserRepository.ExistsByEmailAsync(request.Email);
+            var normalizedEmail = EmailNormalizer.Normalize(request.Email);
+            var existsByEmail = await _appUserRepository.ExistsByEmailAsync(normalizedEmail);
 
             if (existsByEmail)
             {
@@ -70,7 +72,7 @@ namespace TaskFlow.Application.UseCases.AppUsers
 
             var appUser = new AppUser(
                 userName: request.UserName,
-                email: request.Email,
+                email: normalizedEmail,
                 passwordHash: passwordHash,
                 role: UserRole.Member,
                 company: company
