@@ -1,19 +1,18 @@
 ﻿using FluentValidation;
 using TaskFlow.Application.Constants;
 using TaskFlow.Application.Requests.Users;
-using TaskFlow.Domain.Enums;
 
 namespace TaskFlow.Application.Validators.Users
 {
     public class CreateAppUserRequestValidator : AbstractValidator<CreateAppUserRequest>
     {
-        public CreateAppUserRequestValidator() 
+        public CreateAppUserRequestValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.UserName)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredName)
-                .MaximumLength(100).WithMessage("Name must not exceed 100 characters.");
+                .MaximumLength(100).WithMessage(ValidationMessages.NameMaxLength);
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredEmail)
@@ -25,8 +24,6 @@ namespace TaskFlow.Application.Validators.Users
                 .Must(p => p.Any(char.IsUpper)).WithMessage(ValidationMessages.PasswordMustContainUppercase)
                 .Must(p => p.Any(char.IsLower)).WithMessage(ValidationMessages.PasswordMustContainLowercase)
                 .Must(p => p.Any(char.IsDigit)).WithMessage(ValidationMessages.PasswordMustContainNumber);
-        
- 
         }
     }
 }

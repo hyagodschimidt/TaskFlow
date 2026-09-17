@@ -7,13 +7,13 @@ namespace TaskFlow.Application.Validators.Companies
 {
     public class CreateCompanyRequestValidator : AbstractValidator<CreateCompanyRequest>
     {
-        public CreateCompanyRequestValidator() 
+        public CreateCompanyRequestValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.CompanyName)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredCompanyName)
-                .MaximumLength(100).WithMessage("Company name must not exceed 100 characters.");
+                .MaximumLength(100).WithMessage(ValidationMessages.CompanyNameMaxLength);
 
             RuleFor(x => x.TaxId)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredTaxId)
@@ -22,10 +22,10 @@ namespace TaskFlow.Application.Validators.Companies
                 .Must(p => p.All(char.IsLetterOrDigit)).WithMessage(ValidationMessages.InvalidTaxId);
 
             RuleFor(x => x.PriorityAccessPolicy)
-                .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<PriorityAccessPolicy>("Priority access Policy"));
+                .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<PriorityAccessPolicy>("Priority access policy"));
 
             RuleFor(x => x.DeadlineMode)
-                .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<DeadlineMode>("Dead line mode"));
+                .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<DeadlineMode>("Deadline mode"));
 
             RuleFor(x => x.OwnerName)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredName);
@@ -40,7 +40,6 @@ namespace TaskFlow.Application.Validators.Companies
                 .Must(p => p.Any(char.IsUpper)).WithMessage(ValidationMessages.PasswordMustContainUppercase)
                 .Must(p => p.Any(char.IsLower)).WithMessage(ValidationMessages.PasswordMustContainLowercase)
                 .Must(p => p.Any(char.IsDigit)).WithMessage(ValidationMessages.PasswordMustContainNumber);
-
         }
     }
 }
