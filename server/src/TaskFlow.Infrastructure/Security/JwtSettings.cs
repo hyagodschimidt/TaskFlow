@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskFlow.Infrastructure.Security
+﻿namespace TaskFlow.Infrastructure.Security
 {
     public class JwtSettings
     {

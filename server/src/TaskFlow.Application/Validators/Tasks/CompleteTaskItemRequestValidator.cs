@@ -6,7 +6,7 @@ namespace TaskFlow.Application.Validators.Tasks
 {
     public class CompleteTaskItemRequestValidator : AbstractValidator<CompleteTaskItemRequest>
     {
-        public CompleteTaskItemRequestValidator() 
+        public CompleteTaskItemRequestValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 

@@ -6,7 +6,7 @@ namespace TaskFlow.Application.Validators.Auth
 {
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {
-        public LoginRequestValidator() 
+        public LoginRequestValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
@@ -16,8 +16,6 @@ namespace TaskFlow.Application.Validators.Auth
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredPassword);
-                
-
         }
     }
 }

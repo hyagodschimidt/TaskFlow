@@ -11,13 +11,13 @@
 
         public const string RequiredTitle = "Title is required.";
         public const string TitleMinLength = "Title must have at least 5 characters.";
-        public const string TitleMaxLength = "Title must have at most 50 characters.";
+        public const string TitleMaxLength = "Title must have at most 100 characters.";
 
         public const string RequiredDescription = "Description is required.";
         public const string DescriptionMinLength = "Description must have at least 25 characters.";
         public const string DescriptionMaxLength = "Description must have at most 2000 characters.";
 
-        public const string RequiredUser = "A task muts be assigned to a member.";
+        public const string RequiredUser = "A task must be assigned to a member.";
 
         public const string RequiredPriority = "A priority must be selected because this company requires task priority.";
 
@@ -37,13 +37,13 @@
         public const string PasswordMustContainNumber = "Password must contain at least one number.";
 
         public const string RequiredName = "Name is required.";
+        public const string NameMaxLength = "Name must not exceed 100 characters.";
 
         public const string RequiredCompanyName = "Company name is required";
+        public const string CompanyNameMaxLength = "Company name must not exceed 100 characters.";
         public const string RequiredTaxId = "Tax ID is required";
         public const string InvalidTaxId = "Tax ID must contain only letters and numbers. Do not use spaces or symbols.";
         public const string TaxIdMinLength = "Tax ID must have at least 5 characters.";
-        public const string TaxIdMaxLength = "Tax Id must have at most 30 charcters.";
-
+        public const string TaxIdMaxLength = "Tax ID must have at most 30 characters.";
     }
 }
-

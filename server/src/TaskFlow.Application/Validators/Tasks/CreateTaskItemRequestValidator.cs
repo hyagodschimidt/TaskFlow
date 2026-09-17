@@ -10,6 +10,7 @@ namespace TaskFlow.Application.Validators.Tasks
         public CreateTaskItemRequestValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
+
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredTitle)
                 .MaximumLength(100).WithMessage(ValidationMessages.TitleMaxLength)
@@ -23,9 +24,9 @@ namespace TaskFlow.Application.Validators.Tasks
             RuleFor(x => x.AssignedToUserId)
                 .GreaterThan(0).WithMessage(ValidationMessages.RequiredUser);
 
-            RuleFor(x => x.Priority)        
+            RuleFor(x => x.Priority)
                 .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<TaskItemPriority>("Priority"));
-            
+
             RuleFor(x => x.DueDate)
                 .Must(dueDate => dueDate == null || dueDate > DateTime.UtcNow)
                 .WithMessage(ValidationMessages.FutureDueDate);
