@@ -4,6 +4,6 @@
     {
         Free = 1,
         SuggestOrder = 2,
-        StrictPriorityLoca = 3,
+        StrictPriorityLock = 3,
     }
 }

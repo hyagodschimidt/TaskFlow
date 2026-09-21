@@ -19,7 +19,7 @@ namespace TaskFlow.Application.Validators.Companies
                 .NotEmpty().WithMessage(ValidationMessages.RequiredTaxId)
                 .MinimumLength(5).WithMessage(ValidationMessages.TaxIdMinLength)
                 .MaximumLength(30).WithMessage(ValidationMessages.TaxIdMaxLength)
-                .Must(p => p.All(char.IsLetterOrDigit)).WithMessage(ValidationMessages.InvalidTaxId);
+                .Must(p => p.All(char.IsDigit)).WithMessage(ValidationMessages.InvalidTaxId);
 
             RuleFor(x => x.PriorityAccessPolicy)
                 .IsInEnum().WithMessage(ValidationMessages.InvalidEnum<PriorityAccessPolicy>("Priority access policy"));
