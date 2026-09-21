@@ -24,8 +24,8 @@
         public const string FutureDueDate = "DueDate must be a future date";
 
         public const string RequiredCompletionReport = "A completion report is required to complete the task.";
-        public const string ReportMinLenght = "Completion report must have at least 30 characters.";
-        public const string ReportMaxLenght = "Completion report must have at most 2000 characters.";
+        public const string ReportMinLength = "Completion report must have at least 30 characters.";
+        public const string ReportMaxLength = "Completion report must have at most 2000 characters.";
 
         public const string RequiredEmail = "Email is required.";
         public const string InvalidEmail = "Email is invalid.";
@@ -42,7 +42,7 @@
         public const string RequiredCompanyName = "Company name is required";
         public const string CompanyNameMaxLength = "Company name must not exceed 100 characters.";
         public const string RequiredTaxId = "Tax ID is required";
-        public const string InvalidTaxId = "Tax ID must contain only letters and numbers. Do not use spaces or symbols.";
+        public const string InvalidTaxId = "Tax ID must contain only digits.";
         public const string TaxIdMinLength = "Tax ID must have at least 5 characters.";
         public const string TaxIdMaxLength = "Tax ID must have at most 30 characters.";
     }

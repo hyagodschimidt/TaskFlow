@@ -12,8 +12,8 @@ namespace TaskFlow.Application.Validators.Tasks
 
             RuleFor(x => x.Report)
                 .NotEmpty().WithMessage(ValidationMessages.RequiredCompletionReport)
-                .MinimumLength(30).WithMessage(ValidationMessages.ReportMinLenght)
-                .MaximumLength(2000).WithMessage(ValidationMessages.ReportMaxLenght);
+                .MinimumLength(30).WithMessage(ValidationMessages.ReportMinLength)
+                .MaximumLength(2000).WithMessage(ValidationMessages.ReportMaxLength);
         }
     }
 }
