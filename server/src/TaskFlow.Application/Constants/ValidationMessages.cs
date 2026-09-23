@@ -8,37 +8,29 @@
         }
 
         public const string InvalidUserRoleForCreation = "User role must be Admin or Member.";
-
+        public const string ManualDueDateNotAllowed = "DueDate cannot be provided when deadline mode is calculated by priority.";
         public const string RequiredTitle = "Title is required.";
         public const string TitleMinLength = "Title must have at least 5 characters.";
         public const string TitleMaxLength = "Title must have at most 100 characters.";
-
         public const string RequiredDescription = "Description is required.";
         public const string DescriptionMinLength = "Description must have at least 25 characters.";
         public const string DescriptionMaxLength = "Description must have at most 2000 characters.";
-
         public const string RequiredUser = "A task must be assigned to a member.";
-
         public const string RequiredPriority = "A priority must be selected because this company requires task priority.";
-
         public const string FutureDueDate = "DueDate must be a future date";
-
+        public const string RequiredDueDate = "DueDate is required when deadline mode is manual.";
         public const string RequiredCompletionReport = "A completion report is required to complete the task.";
         public const string ReportMinLength = "Completion report must have at least 30 characters.";
         public const string ReportMaxLength = "Completion report must have at most 2000 characters.";
-
         public const string RequiredEmail = "Email is required.";
         public const string InvalidEmail = "Email is invalid.";
-
         public const string RequiredPassword = "Password is required.";
         public const string PasswordMinLength = "Password must have at least 6 characters.";
         public const string PasswordMustContainUppercase = "Password must contain at least one uppercase letter.";
         public const string PasswordMustContainLowercase = "Password must contain at least one lowercase letter.";
         public const string PasswordMustContainNumber = "Password must contain at least one number.";
-
         public const string RequiredName = "Name is required.";
         public const string NameMaxLength = "Name must not exceed 100 characters.";
-
         public const string RequiredCompanyName = "Company name is required";
         public const string CompanyNameMaxLength = "Company name must not exceed 100 characters.";
         public const string RequiredTaxId = "Tax ID is required";
