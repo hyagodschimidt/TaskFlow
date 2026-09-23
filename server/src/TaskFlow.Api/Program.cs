@@ -15,6 +15,7 @@ using TaskFlow.Application.Interfaces.UseCases;
 using TaskFlow.Application.UseCases.AppUsers;
 using TaskFlow.Application.UseCases.Authentication;
 using TaskFlow.Application.UseCases.Companies;
+using TaskFlow.Application.UseCases.Tasks;
 using TaskFlow.Application.Validators.Users;
 using TaskFlow.Infrastructure.Persistence;
 using TaskFlow.Infrastructure.Persistence.Repositories;
@@ -86,6 +87,8 @@ builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
+builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<ICreateTaskItemUseCase, CreateTaskItemUseCase>();
 
 var app = builder.Build();
 

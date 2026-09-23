@@ -39,5 +39,10 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync();
             return companyId;
         }
+
+        public async Task<AppUser?> GetByIdAsync(int id)
+        {
+            return await _context.AppUsers.FirstOrDefaultAsync(u => u.Id == id);
+        }
     }
 }
