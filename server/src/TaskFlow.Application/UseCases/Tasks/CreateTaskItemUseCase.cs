@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.VisualBasic;
-using System.ComponentModel.Design;
 using TaskFlow.Application.Constants;
 using TaskFlow.Application.Exceptions;
 using TaskFlow.Application.Interfaces.Authentication;
@@ -40,17 +38,18 @@ namespace TaskFlow.Application.UseCases.Tasks
         }
         public async Task<TaskItemResponse> ExecuteAsync(CreateTaskItemRequest request)
         {
-
+            if (_currentUser.Role is not UserRole.Owner and not UserRole.Admin)
+            {
+                throw new ForbiddenException("Only Admins and Owners can create tasks.");
+            }
 
             var result = await _validator.ValidateAsync(request);
-
             if (!result.IsValid)
             {
                 throw new ValidationException("Invalid request", result.Errors);
             }
 
             var currentUserId = _currentUser.UserId;
-
             var currentUser = await _appUserRepository.GetByIdAsync(currentUserId);
             if (currentUser == null)
             {
@@ -58,16 +57,13 @@ namespace TaskFlow.Application.UseCases.Tasks
             }
 
             var companyId = currentUser.CompanyId;
-
             var company = await _companyRepository.GetByIdAsync(companyId);
-
             if (company == null)
             {
                 throw new NotFoundException("Company not found.");
             }
 
             var assignedToUser = await _appUserRepository.GetByIdAsync(request.AssignedToUserId);
-
             if (assignedToUser == null)
             {
                 throw new NotFoundException("Assigned user not found.");
@@ -77,7 +73,6 @@ namespace TaskFlow.Application.UseCases.Tasks
             {
                 throw new ForbiddenException("Assigned user must belong to the same company.");
             }
-
             if (request.Priority is null &&
                (company.DeadlineMode == DeadlineMode.CalculatedByPriority ||
                company.PriorityAccessPolicy != PriorityAccessPolicy.Free))
@@ -89,28 +84,27 @@ namespace TaskFlow.Application.UseCases.Tasks
 
             if (company.DeadlineMode == DeadlineMode.CalculatedByPriority)
             {
-                if (request.DueDate is not null)
+                if (dueDate is not null)
                 {
                     throw new ValidationException(
                         ValidationMessages.ManualDueDateNotAllowed);
                 }
 
-                if (request.Priority == TaskItemPriority.High)
-                    dueDate = DateTime.UtcNow.AddDays(1);
-                else if (request.Priority == TaskItemPriority.Medium)
-                    dueDate = DateTime.UtcNow.AddDays(3);
-                else if (request.Priority == TaskItemPriority.Low)
-                    dueDate = DateTime.UtcNow.AddDays(7);
+                dueDate = request.Priority switch
+                {
+                    TaskItemPriority.High => DateTime.UtcNow.AddDays(1),
+                    TaskItemPriority.Medium => DateTime.UtcNow.AddDays(3),
+                    TaskItemPriority.Low => DateTime.UtcNow.AddDays(7),
+                    _ => dueDate
+                };
             }
 
             if (company.DeadlineMode == DeadlineMode.Manual &&
-                request.DueDate is null)
+                dueDate is null)
             {
                 throw new ValidationException(
                     ValidationMessages.RequiredDueDate);
             }
-
-
 
             var taskItem = new TaskItem
             (
