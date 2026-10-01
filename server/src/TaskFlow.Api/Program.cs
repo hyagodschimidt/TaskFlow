@@ -83,12 +83,15 @@ builder.Services.AddScoped<ICreateCompanyUseCase, CreateCompanyUseCase>();
 builder.Services.AddScoped<ICreateAppUserUseCase, CreateAppUserUseCase>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<IGetTaskItemByIdUseCase, GetTaskItemByIdUseCase>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();        
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 builder.Services.AddScoped<ICreateTaskItemUseCase, CreateTaskItemUseCase>();
+builder.Services.AddScoped<IGetTaskItemByIdUseCase, GetTaskItemByIdUseCase>();
 
 var app = builder.Build();
 
