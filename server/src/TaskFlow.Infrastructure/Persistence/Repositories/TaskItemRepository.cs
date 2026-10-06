@@ -52,5 +52,35 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
                     t.CompanyId == companyId &&
                     t.AssignedToUserId == userId);
         }
+
+        public async Task<IReadOnlyList<TaskItem>> GetForOwnerAsync(
+            int companyId)
+        {
+            return await _context.Tasks
+                .Where(t => t.CompanyId == companyId)
+                .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<TaskItem>> GetForAdminAsync(
+            int companyId,
+            int userId)
+        {
+            return await _context.Tasks
+                .Where(t =>
+                    t.CompanyId == companyId &&
+                    (t.AssignedToUserId == userId ||
+                     t.CreatedByUserId == userId))
+                .ToListAsync();
+        }
+        public async Task<IReadOnlyList<TaskItem>> GetForMemberAsync(
+            int companyId,
+            int userId)
+        {
+            return await _context.Tasks
+                .Where(t =>
+                    t.CompanyId == companyId &&
+                    t.AssignedToUserId == userId)
+                .ToListAsync();
+        }
     }
 }

@@ -11,5 +11,11 @@ namespace TaskFlow.Application.Interfaces.Repositories
         Task<TaskItem?> GetByIdForAdminAsync(int id, int companyId, int userId);
 
         Task<TaskItem?> GetByIdForMemberAsync(int id, int companyId, int userId);
+
+        Task<IReadOnlyList<TaskItem>> GetForOwnerAsync(int companyId);
+
+        Task<IReadOnlyList<TaskItem>> GetForAdminAsync(int companyId, int userId);
+
+        Task<IReadOnlyList<TaskItem>> GetForMemberAsync(int companyId, int userId);
     }
 }
