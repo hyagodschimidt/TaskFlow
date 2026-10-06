@@ -12,11 +12,14 @@ namespace TaskFlow.Api.Controllers
     {
         private readonly ICreateTaskItemUseCase _createTaskItemUseCase;
         private readonly IGetTaskItemByIdUseCase _getTaskItemByIdUseCase;
+        private readonly IGetTaskItemsUseCase _getTaskItemsUseCase;
         public TasksController(ICreateTaskItemUseCase createTaskItemUseCase,
-            IGetTaskItemByIdUseCase getTaskItemByIdUseCase)
+            IGetTaskItemByIdUseCase getTaskItemByIdUseCase,
+            IGetTaskItemsUseCase getTaskItemsUseCase)
         {
             _createTaskItemUseCase = createTaskItemUseCase;
             _getTaskItemByIdUseCase = getTaskItemByIdUseCase;
+            _getTaskItemsUseCase = getTaskItemsUseCase;
         }
 
         [HttpPost]
@@ -32,5 +35,13 @@ namespace TaskFlow.Api.Controllers
             var response = await _getTaskItemByIdUseCase.ExecuteAsync(taskItemId);
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTaskItems()
+        {
+            var response = await _getTaskItemsUseCase.ExecuteAsync();
+            return Ok(response);
+        }
+
     }
 }

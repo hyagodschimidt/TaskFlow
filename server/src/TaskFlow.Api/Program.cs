@@ -90,6 +90,7 @@ builder.Services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<ICreateTaskItemUseCase, CreateTaskItemUseCase>();
 builder.Services.AddScoped<IGetTaskItemByIdUseCase, GetTaskItemByIdUseCase>();
+builder.Services.AddScoped<IGetTaskItemsUseCase, GetTaskItemsUseCase>();
 
 var app = builder.Build();
 
