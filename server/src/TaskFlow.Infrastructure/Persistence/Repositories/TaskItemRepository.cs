@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskFlow.Application.Interfaces.Repositories;
 using TaskFlow.Domain.Entities;
+using TaskFlow.Domain.Enums;
 
 namespace TaskFlow.Infrastructure.Persistence.Repositories
 {
@@ -41,7 +42,7 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
                      t.CreatedByUserId == userId));
         }
 
-        public async Task<TaskItem?> GetByIdForMemberAsync(
+        public async Task<TaskItem?> GetByIdForAssignedUserAsync(
             int id,
             int companyId,
             int userId)
@@ -81,6 +82,22 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
                     t.CompanyId == companyId &&
                     t.AssignedToUserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task<bool> HasHigherPriorityPendingTaskAsync(
+            int assignedUserId,
+            int companyId,
+            TaskItemPriority priority)
+        {
+            return await _context.Tasks
+                .AnyAsync(t =>
+                    t.AssignedToUserId == assignedUserId &&
+                    t.CompanyId == companyId &&
+                    t.Status != TaskItemStatus.Completed &&
+                    t.Priority.HasValue &&
+                    (int)t.Priority.Value > (int)priority
+                    );
+
         }
     }
 }

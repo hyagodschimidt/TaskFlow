@@ -91,6 +91,7 @@ builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<ICreateTaskItemUseCase, CreateTaskItemUseCase>();
 builder.Services.AddScoped<IGetTaskItemByIdUseCase, GetTaskItemByIdUseCase>();
 builder.Services.AddScoped<IGetTaskItemsUseCase, GetTaskItemsUseCase>();
+builder.Services.AddScoped<IStartTaskUseCase, StartTaskUseCase>();
 
 var app = builder.Build();
 

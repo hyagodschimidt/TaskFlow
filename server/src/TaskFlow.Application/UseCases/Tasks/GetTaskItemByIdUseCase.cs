@@ -40,7 +40,7 @@ namespace TaskFlow.Application.UseCases.Tasks
 
                 case UserRole.Member:
                     taskItem = await _taskItemRepository
-                        .GetByIdForMemberAsync(
+                        .GetByIdForAssignedUserAsync(
                         taskItemId, 
                         currentUserCompanyId, 
                         currentUserId);

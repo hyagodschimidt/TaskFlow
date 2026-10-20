@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Application.Interfaces.UseCases;
 using TaskFlow.Application.Requests.Tasks;
+using TaskFlow.Application.Responses.Tasks;
 
 namespace TaskFlow.Api.Controllers
 {
@@ -13,13 +14,17 @@ namespace TaskFlow.Api.Controllers
         private readonly ICreateTaskItemUseCase _createTaskItemUseCase;
         private readonly IGetTaskItemByIdUseCase _getTaskItemByIdUseCase;
         private readonly IGetTaskItemsUseCase _getTaskItemsUseCase;
+
+        private readonly IStartTaskUseCase _startTaskUseCase;
         public TasksController(ICreateTaskItemUseCase createTaskItemUseCase,
             IGetTaskItemByIdUseCase getTaskItemByIdUseCase,
-            IGetTaskItemsUseCase getTaskItemsUseCase)
+            IGetTaskItemsUseCase getTaskItemsUseCase,
+            IStartTaskUseCase startTaskUseCase)
         {
             _createTaskItemUseCase = createTaskItemUseCase;
             _getTaskItemByIdUseCase = getTaskItemByIdUseCase;
             _getTaskItemsUseCase = getTaskItemsUseCase;
+            _startTaskUseCase = startTaskUseCase;
         }
 
         [HttpPost]
@@ -43,5 +48,11 @@ namespace TaskFlow.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPost("{taskItemId:int}/start")]
+        public async Task<ActionResult<StartTaskResponse>> StartTask(int taskItemId)
+        {
+            var response = await _startTaskUseCase.ExecuteAsync(taskItemId);
+            return Ok(response);
+        }
     }
 }

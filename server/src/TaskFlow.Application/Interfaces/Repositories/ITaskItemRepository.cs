@@ -1,4 +1,5 @@
 ﻿using TaskFlow.Domain.Entities;
+using TaskFlow.Domain.Enums;
 
 namespace TaskFlow.Application.Interfaces.Repositories
 {
@@ -10,12 +11,16 @@ namespace TaskFlow.Application.Interfaces.Repositories
 
         Task<TaskItem?> GetByIdForAdminAsync(int id, int companyId, int userId);
 
-        Task<TaskItem?> GetByIdForMemberAsync(int id, int companyId, int userId);
+        Task<TaskItem?> GetByIdForAssignedUserAsync(int id, int companyId, int userId);
 
         Task<IReadOnlyList<TaskItem>> GetForOwnerAsync(int companyId);
 
         Task<IReadOnlyList<TaskItem>> GetForAdminAsync(int companyId, int userId);
 
         Task<IReadOnlyList<TaskItem>> GetForMemberAsync(int companyId, int userId);
+
+        Task<bool> HasHigherPriorityPendingTaskAsync(int assignedUserId, int companyId, TaskItemPriority priority);
+
+
     }
 }
