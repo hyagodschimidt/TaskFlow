@@ -14,17 +14,20 @@ namespace TaskFlow.Api.Controllers
         private readonly ICreateTaskItemUseCase _createTaskItemUseCase;
         private readonly IGetTaskItemByIdUseCase _getTaskItemByIdUseCase;
         private readonly IGetTaskItemsUseCase _getTaskItemsUseCase;
-
         private readonly IStartTaskUseCase _startTaskUseCase;
-        public TasksController(ICreateTaskItemUseCase createTaskItemUseCase,
+        private readonly ICompleteTaskItemUseCase _completeTaskItemUseCase;
+        public TasksController(
+            ICreateTaskItemUseCase createTaskItemUseCase,
             IGetTaskItemByIdUseCase getTaskItemByIdUseCase,
             IGetTaskItemsUseCase getTaskItemsUseCase,
-            IStartTaskUseCase startTaskUseCase)
+            IStartTaskUseCase startTaskUseCase,
+            ICompleteTaskItemUseCase completeTaskItemUseCase)
         {
             _createTaskItemUseCase = createTaskItemUseCase;
             _getTaskItemByIdUseCase = getTaskItemByIdUseCase;
             _getTaskItemsUseCase = getTaskItemsUseCase;
             _startTaskUseCase = startTaskUseCase;
+            _completeTaskItemUseCase = completeTaskItemUseCase;
         }
 
         [HttpPost]
@@ -52,6 +55,15 @@ namespace TaskFlow.Api.Controllers
         public async Task<ActionResult<StartTaskResponse>> StartTask(int taskItemId)
         {
             var response = await _startTaskUseCase.ExecuteAsync(taskItemId);
+            return Ok(response);
+        }
+
+        [HttpPost("{taskItemId:int}/complete")]
+        public async Task<ActionResult<CompleteTaskItemResponse>> CompleteTask(
+            int taskItemId,
+            [FromBody] CompleteTaskItemRequest request)
+        {
+            var response = await _completeTaskItemUseCase.ExecuteAsync(taskItemId, request);
             return Ok(response);
         }
     }

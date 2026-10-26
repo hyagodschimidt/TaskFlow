@@ -2,6 +2,6 @@
 {
     public class CompleteTaskItemRequest
     {
-        public string Report { get; set; } = string.Empty;
+        public string CompletionReport { get; set; } = string.Empty;
     }
 }
