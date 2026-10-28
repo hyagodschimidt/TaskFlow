@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskFlow.Application.Interfaces.Repositories;
+using TaskFlow.Application.Responses.Users;
 using TaskFlow.Domain.Entities;
+using TaskFlow.Domain.Enums;
 using TaskFlow.Infrastructure.Persistence;
 
 namespace TaskFlow.Infrastructure.Persistence.Repositories
@@ -43,6 +45,20 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
         public async Task<AppUser?> GetByIdAsync(int id)
         {
             return await _context.AppUsers.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<IReadOnlyList<AppUser>> GetByCompanyIdAsync(int companyId)
+        {
+            return await _context.AppUsers
+                .Where(u => u.CompanyId == companyId)
+                .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<AppUser>> GetMembersByCompanyIdAsync(int companyId)
+        {
+            return await _context.AppUsers
+                .Where(u => u.Role == UserRole.Member && u.CompanyId == companyId)
+                .ToListAsync();
         }
     }
 }

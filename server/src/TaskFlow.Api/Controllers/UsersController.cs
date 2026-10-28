@@ -12,9 +12,13 @@ namespace TaskFlow.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ICreateAppUserUseCase _createAppUserUseCase;
-        public UsersController(ICreateAppUserUseCase createAppUserUseCase)
+        private readonly IGetAppUsersUseCase _getAppUsersUseCase;
+        public UsersController(
+            ICreateAppUserUseCase createAppUserUseCase,
+            IGetAppUsersUseCase getAppUsersUseCase)
         {
             _createAppUserUseCase = createAppUserUseCase;
+            _getAppUsersUseCase = getAppUsersUseCase;
         }
 
         [HttpPost]
@@ -22,6 +26,14 @@ namespace TaskFlow.Api.Controllers
         {
             var response = await _createAppUserUseCase.ExecuteAsync(request);
             return StatusCode(StatusCodes.Status201Created, response);
+        }
+
+        [Authorize(Roles = "Owner,Admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            var response = await _getAppUsersUseCase.ExecuteAsync();
+            return Ok(response);
         }
     }
 }
