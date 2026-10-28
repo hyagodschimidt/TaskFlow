@@ -93,6 +93,7 @@ builder.Services.AddScoped<IGetTaskItemByIdUseCase, GetTaskItemByIdUseCase>();
 builder.Services.AddScoped<IStartTaskUseCase, StartTaskUseCase>();
 builder.Services.AddScoped<ICompleteTaskItemUseCase, CompleteTaskItemUseCase>();
 builder.Services.AddScoped<IGetTaskItemsUseCase, GetTaskItemsUseCase>();
+builder.Services.AddScoped<IGetAppUsersUseCase, GetAppUsersUseCase>();
 
 var app = builder.Build();
 
@@ -112,5 +113,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-
