@@ -13,12 +13,15 @@ namespace TaskFlow.Api.Controllers
     {
         private readonly ICreateAppUserUseCase _createAppUserUseCase;
         private readonly IGetAppUsersUseCase _getAppUsersUseCase;
+        private readonly IChangeRoleUseCase _changeRoleUseCase;
         public UsersController(
             ICreateAppUserUseCase createAppUserUseCase,
-            IGetAppUsersUseCase getAppUsersUseCase)
+            IGetAppUsersUseCase getAppUsersUseCase,
+            IChangeRoleUseCase changeRoleUseCase)
         {
             _createAppUserUseCase = createAppUserUseCase;
             _getAppUsersUseCase = getAppUsersUseCase;
+            _changeRoleUseCase = changeRoleUseCase;
         }
 
         [HttpPost]
@@ -34,6 +37,14 @@ namespace TaskFlow.Api.Controllers
         {
             var response = await _getAppUsersUseCase.ExecuteAsync();
             return Ok(response);
+        }
+
+        [Authorize(Roles = "Owner")]
+        [HttpPatch("{userId:int}/role")]
+        public async Task<IActionResult> ChangeRole([FromRoute] int userId, [FromBody] ChangeAppUserRoleRequest request)
+        {
+            await _changeRoleUseCase.ExecuteAsync(userId, request);
+            return NoContent();
         }
     }
 }

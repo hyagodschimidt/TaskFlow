@@ -94,6 +94,7 @@ builder.Services.AddScoped<IStartTaskUseCase, StartTaskUseCase>();
 builder.Services.AddScoped<ICompleteTaskItemUseCase, CompleteTaskItemUseCase>();
 builder.Services.AddScoped<IGetTaskItemsUseCase, GetTaskItemsUseCase>();
 builder.Services.AddScoped<IGetAppUsersUseCase, GetAppUsersUseCase>();
+builder.Services.AddScoped<IChangeRoleUseCase, ChangeRoleUseCase>();
 
 var app = builder.Build();
 

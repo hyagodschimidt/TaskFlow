@@ -126,6 +126,18 @@ namespace TaskFlow.Api.Middlewares
                     message = ex.Message,
                 });
             }
+            catch (InvalidRoleTransitionException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+
+                _logger.LogWarning("Invalid role transition: {Message}", ex.Message);
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    status = context.Response.StatusCode,
+                    message = ex.Message,
+                });
+            }
             catch (Exception ex)
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
