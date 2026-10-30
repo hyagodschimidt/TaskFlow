@@ -1,6 +1,7 @@
 ﻿namespace TaskFlow.Domain.Entities;
-
 using TaskFlow.Domain.Enums;
+using TaskFlow.Domain.Exceptions;
+
 public class AppUser
 {
     public int Id { get; private set; }
@@ -27,5 +28,23 @@ public class AppUser
         PasswordHash = passwordHash;
         Company = company;
         Role = role;
+    }
+
+    public void ChangeRole(UserRole newRole)
+    {
+        if (Role == UserRole.Owner)
+        {
+            throw new InvalidRoleTransitionException("Cannot change the role of an Owner.");
+        }
+        if (newRole != UserRole.Admin && newRole != UserRole.Member)
+        {
+            throw new DomainValidationException("Invalid role transition.");
+        }
+        if (Role == newRole)
+        {
+            throw new InvalidRoleTransitionException("The user already has this role.");
+        }
+
+        Role = newRole;
     }
 }

@@ -7,7 +7,7 @@
             return $"Invalid {fieldName}. Allowed values: {string.Join(", ", Enum.GetNames<TEnum>())}.";
         }
 
-        public const string InvalidUserRoleForCreation = "User role must be Admin or Member.";
+        public const string UserRoleMustBeAdminOrMember = "User role must be Admin or Member.";
         public const string ManualDueDateNotAllowed = "DueDate cannot be provided when deadline mode is calculated by priority.";
         public const string RequiredTitle = "Title is required.";
         public const string TitleMinLength = "Title must have at least 5 characters.";
